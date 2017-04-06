@@ -1,4 +1,4 @@
-include ':app', ':wear', ':common'
+include ':bletoolbox', ':wear', ':common'
 
 include ':ble'
 project(':ble').projectDir = file('../Android-BLE-Library/ble')
