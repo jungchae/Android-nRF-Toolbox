@@ -186,8 +186,8 @@ public class UARTActivity extends BleProfileServiceReadyActivity<UARTService.UAR
 	@Override
 	public void onConnected(final Bundle bundle) {
 		// Ensure the Wearable API was connected
-		if (!mWearableSynchronizer.hasConnectedApi())
-			return;
+//		if (!mWearableSynchronizer.hasConnectedApi())
+//			return;
 
 		if (!mPreferences.getBoolean(PREFS_WEAR_SYNCED, false)) {
 			new Thread(() -> {
@@ -225,7 +225,7 @@ public class UARTActivity extends BleProfileServiceReadyActivity<UARTService.UAR
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		mWearableSynchronizer.close();
+//		mWearableSynchronizer.close();
 	}
 
 	@Override
@@ -443,7 +443,7 @@ public class UARTActivity extends BleProfileServiceReadyActivity<UARTService.UAR
 			final UartConfiguration removedConfiguration = mConfiguration;
 			final long id = mDatabaseHelper.deleteConfiguration(name);
 			if (id >= 0)
-				mWearableSynchronizer.onConfigurationDeleted(id);
+//				mWearableSynchronizer.onConfigurationDeleted(id);
 			refreshConfigurations();
 
 			final Snackbar snackbar = Snackbar.make(mSlider, R.string.uart_configuration_deleted, Snackbar.LENGTH_INDEFINITE).setAction(R.string.uart_action_undo, new View.OnClickListener() {
@@ -451,7 +451,7 @@ public class UARTActivity extends BleProfileServiceReadyActivity<UARTService.UAR
 				public void onClick(final View v) {
 					final long id = mDatabaseHelper.restoreDeletedServerConfiguration(name);
 					if (id >= 0)
-						mWearableSynchronizer.onConfigurationAddedOrEdited(id, removedConfiguration);
+//						mWearableSynchronizer.onConfigurationAddedOrEdited(id, removedConfiguration);
 					refreshConfigurations();
 				}
 			});
@@ -631,7 +631,7 @@ public class UARTActivity extends BleProfileServiceReadyActivity<UARTService.UAR
 			final String xml = writer.toString();
 
 			final long id = mDatabaseHelper.addConfiguration(name, xml);
-			mWearableSynchronizer.onConfigurationAddedOrEdited(id, configuration);
+//			mWearableSynchronizer.onConfigurationAddedOrEdited(id, configuration);
 			refreshConfigurations();
 			selectConfiguration(mConfigurationsAdapter.getItemPosition(id));
 		} catch (final Exception e) {
@@ -659,7 +659,7 @@ public class UARTActivity extends BleProfileServiceReadyActivity<UARTService.UAR
 			final String xml = writer.toString();
 
 			mDatabaseHelper.renameConfiguration(oldName, newName, xml);
-			mWearableSynchronizer.onConfigurationAddedOrEdited(mPreferences.getLong(PREFS_CONFIGURATION, 0), mConfiguration);
+//			mWearableSynchronizer.onConfigurationAddedOrEdited(mPreferences.getLong(PREFS_CONFIGURATION, 0), mConfiguration);
 			refreshConfigurations();
 		} catch (final Exception e) {
 			Log.e(TAG, "Error while renaming configuration", e);
@@ -741,7 +741,7 @@ public class UARTActivity extends BleProfileServiceReadyActivity<UARTService.UAR
 			final String xml = writer.toString();
 
 			mDatabaseHelper.updateConfiguration(configuration.getName(), xml);
-			mWearableSynchronizer.onConfigurationAddedOrEdited(mPreferences.getLong(PREFS_CONFIGURATION, 0), configuration);
+//			mWearableSynchronizer.onConfigurationAddedOrEdited(mPreferences.getLong(PREFS_CONFIGURATION, 0), configuration);
 		} catch (final Exception e) {
 			Log.e(TAG, "Error while creating a new configuration", e);
 		}
@@ -767,7 +767,7 @@ public class UARTActivity extends BleProfileServiceReadyActivity<UARTService.UAR
 			final String name = configuration.getName();
 			if (!mDatabaseHelper.configurationExists(name)) {
 				final long id = mDatabaseHelper.addConfiguration(name, xml);
-				mWearableSynchronizer.onConfigurationAddedOrEdited(id, configuration);
+//				mWearableSynchronizer.onConfigurationAddedOrEdited(id, configuration);
 				refreshConfigurations();
 				new Handler().post(() -> selectConfiguration(mConfigurationsAdapter.getItemPosition(id)));
 			} else {
