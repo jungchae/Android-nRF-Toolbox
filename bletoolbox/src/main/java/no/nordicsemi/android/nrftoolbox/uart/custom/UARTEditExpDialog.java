@@ -83,10 +83,18 @@ public class UARTEditExpDialog extends DialogFragment implements View.OnClickLis
 		final boolean active = true; // change to active by default
 		mActiveIcon = iconIndex;
 
-		// Create view
-		final View view = inflater.inflate(R.layout.feature_uart_dialog_edit, null);
+		// Get view
+		final View view = inflater.inflate(R.layout.feature_uart_dialog_edit_exp, null);
+
+		// Set EditText view
 		final EditText field = mField = (EditText) view.findViewById(R.id.field);
+		field.setFocusableInTouchMode(false);
+
+		// Set Grid view
 		final GridView grid = (GridView) view.findViewById(R.id.grid);
+		grid.setVisibility(View.GONE);
+
+		// Set CheckBox view
 		final CheckBox checkBox = mActiveCheckBox = (CheckBox) view.findViewById(R.id.active);
 		checkBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
 			@Override
@@ -97,7 +105,9 @@ public class UARTEditExpDialog extends DialogFragment implements View.OnClickLis
 					mIconAdapter.notifyDataSetChanged();
 			}
 		});
+		checkBox.setVisibility(View.GONE);
 
+		// Set RadioGroup view
 		final RadioGroup eolGroup = mEOLGroup = (RadioGroup) view.findViewById(R.id.uart_eol);
 		eolGroup.setVisibility(View.GONE);
 		switch (Command.Eol.values()[eol]) {
@@ -113,6 +123,7 @@ public class UARTEditExpDialog extends DialogFragment implements View.OnClickLis
 				break;
 		}
 
+		// Set Initial State
 		field.setText(command);
 		field.setEnabled(active);
 		checkBox.setChecked(active);
@@ -121,7 +132,7 @@ public class UARTEditExpDialog extends DialogFragment implements View.OnClickLis
 		grid.setAdapter(mIconAdapter = new IconAdapter());
 
 		// As we want to have some validation we can't user the DialogInterface.OnClickListener as it's always dismissing the dialog.
-		final AlertDialog dialog = new AlertDialog.Builder(getActivity()).setCancelable(false).setTitle(R.string.uart_edit_title).setPositiveButton(R.string.ok, null)
+		final AlertDialog dialog = new AlertDialog.Builder(getActivity()).setCancelable(false).setTitle(command).setPositiveButton(R.string.ok, null)
 				.setNegativeButton(R.string.cancel, null).setView(view).show();
 		final Button okButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
 		okButton.setOnClickListener(this);

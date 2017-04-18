@@ -32,12 +32,28 @@ import org.simpleframework.xml.core.Validate;
 public class UartConfiguration {
 	public static final int COMMANDS_COUNT = 15;
 
+	private static final String[] STRING_CMD_ARRAY = {
+			"User Info", "Height", "Weight", "Disease", "Sleep", "Drink", "Smoking",
+			"Skin Color", "Body Dimensions", "Observer", "Discrepancy",
+			"Static", "Orthostatic", "Increase", "Decrease"};
+
 	@Attribute(required = false, empty = "Unnamed")
 	private String name;
 
 	@ElementArray
 	private Command[] commands = new Command[COMMANDS_COUNT];
 
+	public UartConfiguration () {
+        int index = 0;
+        for (int i = 0; i < COMMANDS_COUNT; ++i) {
+			index = (i > 10) ? 10 : i;
+			commands[i] = new Command();
+			commands[i].setCommand(STRING_CMD_ARRAY[i]);
+			commands[i].setActive(true);
+			commands[i].setEol(0); // default one
+			commands[i].setIconIndex(index);
+        }
+	}
 	/**
 	 * Returns the field name
 	 *
