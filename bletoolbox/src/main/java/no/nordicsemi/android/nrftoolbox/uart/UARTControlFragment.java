@@ -33,6 +33,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import no.nordicsemi.android.nrftoolbox.R;
+import no.nordicsemi.android.nrftoolbox.uart.custom.UARTEditExpDialog;
 import no.nordicsemi.android.nrftoolbox.uart.domain.Command;
 import no.nordicsemi.android.nrftoolbox.uart.domain.UartConfiguration;
 
@@ -93,7 +94,8 @@ public class UARTControlFragment extends Fragment implements GridView.OnItemClic
 			Command command = mConfiguration.getCommands()[position];
 			if (command == null)
 				mConfiguration.getCommands()[position] = command = new Command();
-			final UARTEditDialog dialog = UARTEditDialog.getInstance(position, command);
+//			final UARTEditDialog dialog = UARTEditDialog.getInstance(position, command);
+			final UARTEditExpDialog dialog = UARTEditExpDialog.getInstance(position, command);
 			dialog.show(getChildFragmentManager(), null);
 		} else {
 			final Command command = (Command)mAdapter.getItem(position);

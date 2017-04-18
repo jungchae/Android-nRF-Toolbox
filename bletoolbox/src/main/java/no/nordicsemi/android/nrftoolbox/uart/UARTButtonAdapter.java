@@ -97,7 +97,8 @@ public class UARTButtonAdapter extends BaseAdapter {
 		final boolean active = command != null && command.isActive();
 		if (active) {
 			final int icon = command.getIconIndex();
-			image.setImageResource(R.drawable.uart_button);
+//			image.setImageResource(R.drawable.uart_button);
+			image.setImageResource(R.drawable.uart_button_exp);
 			image.setImageLevel(icon);
 		} else
 			image.setImageDrawable(null);

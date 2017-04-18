@@ -30,7 +30,7 @@ import org.simpleframework.xml.core.Validate;
 
 @Root
 public class UartConfiguration {
-	public static final int COMMANDS_COUNT = 9;
+	public static final int COMMANDS_COUNT = 15;
 
 	@Attribute(required = false, empty = "Unnamed")
 	private String name;
