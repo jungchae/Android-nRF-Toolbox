@@ -861,10 +861,11 @@ public class UARTActivity extends BleProfileServiceReadyActivity<UARTService.UAR
 		// This method ensures that the "old", single configuration has been saved to the database.
 		if (mDatabaseHelper.getConfigurationsCount() == 0) {
 			final UartConfiguration configuration = new UartConfiguration();
-			configuration.setName("First configuration");
+			configuration.setName("Template");
+			/*
 			final Command[] commands = configuration.getCommands();
 
-			for (int i = 0; i < 9; ++i) {
+			for (int i = 0; i < UartConfiguration.COMMANDS_COUNT; ++i) {
 				final String cmd = mPreferences.getString(PREFS_BUTTON_COMMAND + i, null);
 				if (cmd != null) {
 					final Command command = new Command();
@@ -875,7 +876,7 @@ public class UARTActivity extends BleProfileServiceReadyActivity<UARTService.UAR
 					commands[i] = command;
 				}
 			}
-
+			*/
 			try {
 				final Format format = new Format(new HyphenStyle());
 				final Strategy strategy = new VisitorStrategy(new CommentVisitor());
