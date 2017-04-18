@@ -29,26 +29,18 @@ import org.simpleframework.xml.Text;
 @Root
 public class Command {
 	public enum Icon {
-		LEFT(0),
-		UP(1),
-		RIGHT(2),
-		DOWN(3),
-		SETTINGS(4),
-		REW(5),
-		PLAY(6),
-		PAUSE(7),
-		STOP(8),
-		FWD(9),
-		INFO(10),
-		NUMBER_1(11),
-		NUMBER_2(12),
-		NUMBER_3(13),
-		NUMBER_4(14),
-		NUMBER_5(15),
-		NUMBER_6(16),
-		NUMBER_7(17),
-		NUMBER_8(18),
-		NUMBER_9(19);
+		USERINFO(0),
+		HEIGHT(1),
+		WEIGHT(2),
+		DISEASE(3),
+		SLEEP(4),
+		DRINK(5),
+		SMOKING(6),
+		SKINCOLOR(7),
+		SIZEARM(8),
+        OBSERVENV(9),
+		REPORTS(10),
+		REPORTSCMP(11);
 
 		public final int index;
 
@@ -79,7 +71,7 @@ public class Command {
 	private Eol eol = Eol.LF;
 
 	@Attribute(required = false)
-	private Icon icon = Icon.LEFT;
+	private Icon icon = Icon.USERINFO;
 
 	/**
 	 * Sets the command.

@@ -22,23 +22,18 @@
 
 package no.nordicsemi.android.nrftoolbox.uart;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
 import no.nordicsemi.android.nrftoolbox.R;
+import no.nordicsemi.android.nrftoolbox.uart.custom.UARTEditExpDialog;
 import no.nordicsemi.android.nrftoolbox.uart.domain.Command;
 import no.nordicsemi.android.nrftoolbox.uart.domain.UartConfiguration;
 
@@ -99,7 +94,8 @@ public class UARTControlFragment extends Fragment implements GridView.OnItemClic
 			Command command = mConfiguration.getCommands()[position];
 			if (command == null)
 				mConfiguration.getCommands()[position] = command = new Command();
-			final UARTEditDialog dialog = UARTEditDialog.getInstance(position, command);
+//			final UARTEditDialog dialog = UARTEditDialog.getInstance(position, command);
+			final UARTEditExpDialog dialog = UARTEditExpDialog.getInstance(position, command);
 			dialog.show(getChildFragmentManager(), null);
 		} else {
 			final Command command = (Command)mAdapter.getItem(position);
