@@ -55,4 +55,6 @@ dependencies {
 
     // compile project(':dfu')
 
+//    compile 'com.crystal:crystalrangeseekbar:1.1.1'
+    compile 'com.ianpinto.androidrangeseekbar:androidrangeseekbar:1.0.0'
 }

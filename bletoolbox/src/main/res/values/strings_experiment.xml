@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="exp_eol_header">Gender</string>
+    <string name="exp_eol_lf_header">Male</string>
+    <string name="exp_eol_cr_header">Female</string>
+    <string name="exp_eol_cr_lf_header">NA</string>
+    <string name="exp_grid_header">Select icon:</string>
+    <string name="exp_email_hint">e-mail address</string>
+    <string name="exp_datePicker_header">Select date</string>
+    <string name="exp_seekBar_height_header">Height</string>
+    <string name="exp_seekBar_weight_header">Weight</string>
+    <string name="exp_switch_arrhythmias">Do you have arrhythmias?</string>
+    <string name="exp_switch_headerantihypertensives">Are you taking antihypertensives?</string>
+    <string name="exp_switch_diabetes">Do you have diabetes?</string>
+    <string name="exp_switch_pregnant">Are you pregnant?</string>
+    <string name="exp_seekBar_avgsleep_header">Average sleep time</string>
+    <string name="exp_seekBar_lastsleep_header">Last sleep time</string>
+    <string name="exp_seekBar_lastcaffeine_header">Caffeine intake elapsed time</string>
+    <string name="exp_seekBar_lastalcohol_header">Alcohol intake elapsed time</string>
+    <string name="exp_seekBar_inspectskin_header">Inspect skin color</string>
+    <string name="exp_seekBar_upperarm_len_header">Upper arm length</string>
+    <string name="exp_seekBar_upperarm_cir_header">Upper arm circumference</string>
+
+    <string name="exp_checkBox_pass_disc_header">Pass discrepancy test?</string>
+    <string name="exp_seekBar_disc_first_header">Discrepancy test 1st left-right arm</string>
+    <string name="exp_seekBar_disc_second_header">Discrepancy test 2nd left-right arm</string>
+    <string name="exp_seekBar_disc_third_header">Discrepancy test 3rd left-right arm</string>
+    <string name="exp_seekBar_static_header">Phase 1 : Static test</string>
+
+    <string name="exp_checkBox_dizzness_ortho_header">Do you feel dizzness?</string>
+    <string name="exp_seekBar_orthos_header">Phase 2 : Orthostatic test</string>
+
+    <string name="exp_seekBar_increase_load_header">Setting both 1st and 2nd load level</string>
+    <string name="exp_seekBar_increase_header">Phase 3 : Increase test</string>
+
+    <string name="exp_seekBar_decrease_temperature_header">Setting water temperature</string>
+    <string name="exp_seekBar_decrease_header">Phase 4 : Decrease test</string>
+
+</resources>

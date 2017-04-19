@@ -35,6 +35,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -109,7 +110,7 @@ public class UARTEditExpDialog extends DialogFragment implements View.OnClickLis
 
 		// Set RadioGroup view
 		final RadioGroup eolGroup = mEOLGroup = (RadioGroup) view.findViewById(R.id.uart_eol);
-		eolGroup.setVisibility(View.GONE);
+		if (Command.Icon.USERINFO.ordinal() != iconIndex) eolGroup.setVisibility(View.GONE);
 		switch (Command.Eol.values()[eol]) {
 			case CR_LF:
 				eolGroup.check(R.id.uart_eol_cr_lf);
@@ -122,6 +123,14 @@ public class UARTEditExpDialog extends DialogFragment implements View.OnClickLis
 				eolGroup.check(R.id.uart_eol_lf);
 				break;
 		}
+
+		// Set EditText view
+		final EditText eMail = /*mField = */(EditText) view.findViewById(R.id.editEmail);
+		if (Command.Icon.USERINFO.ordinal() != iconIndex) eMail.setVisibility(View.GONE);
+
+		// Set EditText view
+		final DatePicker datePicker = /*mField = */(DatePicker) view.findViewById(R.id.datePicker);
+		if (Command.Icon.USERINFO.ordinal() != iconIndex) datePicker.setVisibility(View.GONE);
 
 		// Set Initial State
 		field.setText(command);
