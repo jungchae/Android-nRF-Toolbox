@@ -23,6 +23,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
+	xmlns:rsb="http://schemas.android.com/apk/res-auto"
 	android:orientation="vertical"
 	android:padding="8dp">
 
@@ -44,58 +45,559 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="@string/uart_edit_active"/>
+
 	</LinearLayout>
 
-	<RadioGroup
-		android:id="@+id/uart_eol"
+	<ScrollView
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal"
-		android:layout_marginLeft="5dp">
+		android:layout_height="match_parent">
 
-		<TextView
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical" >
+
+			<RadioGroup
+				android:id="@+id/uart_eol"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:layout_marginLeft="5dp">
+
+				<TextView
+					android:id="@+id/uart_eol_header"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/exp_eol_header"/>
+
+				<RadioButton
+					android:id="@+id/uart_eol_lf"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:minWidth="80dp"
+					android:checked="true"
+					android:text="@string/exp_eol_lf_header"/>
+
+				<RadioButton
+					android:id="@+id/uart_eol_cr"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:minWidth="80dp"
+					android:text="@string/exp_eol_cr_header"/>
+
+				<RadioButton
+					android:id="@+id/uart_eol_cr_lf"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:minWidth="80dp"
+					android:text="@string/exp_eol_cr_lf_header"/>
+
+			</RadioGroup>
+
+			<TextView
+				android:id="@+id/gridHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_grid_header"
+				android:visibility="gone"/>
+
+			<GridView
+				android:id="@+id/grid"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:horizontalSpacing="4dp"
+				android:numColumns="4"
+				android:verticalSpacing="4dp"/>
+
+			<EditText
+				android:id="@+id/editEmail"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ems="10"
+				android:inputType="textEmailAddress"
+				android:hint="@string/exp_email_hint"/>
+
+			<TextView
+				android:id="@+id/datePickerHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_datePicker_header" />
+
+			<DatePicker
+				android:id="@+id/datePicker"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:yearListItemTextAppearance="@style/ActionBar.TitleText" />
+
+			<TextView
+				android:id="@+id/seekBarHeightHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_height_header" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarHeight"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:singleThumb="true"
+				rsb:showLabels="false" />
+
+			<TextView
+				android:id="@+id/seekBarWeightHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_weight_header" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarWeight"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="200"
+				rsb:singleThumb="true"
+				rsb:showLabels="false" />
+
+			<Switch
+				android:id="@+id/switchArrhythmias"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/exp_switch_arrhythmias" />
+
+			<Switch
+				android:id="@+id/switchAntihypertensive"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/exp_switch_headerantihypertensives" />
+
+			<Switch
+				android:id="@+id/switchDiabetes"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/exp_switch_diabetes" />
+
+			<Switch
+				android:id="@+id/switchPregnant"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/exp_switch_pregnant" />
+
+			<TextView
+				android:id="@+id/seekBarAvgSleepHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_avgsleep_header" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarAvgSleep"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="24"
+				rsb:singleThumb="true"
+				rsb:showLabels="false" />
+
+			<TextView
+				android:id="@+id/seekBarLastSleepHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_lastsleep_header" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarLastSleepTime"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="24"
+				rsb:singleThumb="true"
+				rsb:showLabels="false" />
+
+			<TextView
+				android:id="@+id/seekBarLastCaffeineHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_lastcaffeine_header" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarLastCaffeine"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="24"
+				rsb:singleThumb="true"
+				rsb:showLabels="false" />
+
+			<TextView
+				android:id="@+id/seekBarLastAlcoholHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_lastalcohol_header" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarLastAlcohol"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="24"
+				rsb:singleThumb="true"
+				rsb:showLabels="false" />
+
+			<TextView
+				android:id="@+id/seekBarSkinColorHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_inspectskin_header" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarSkinColor"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="1"
+				rsb:absoluteMaxValue="36"
+				rsb:singleThumb="true"
+				rsb:showLabels="false" />
+
+			<TextView
+				android:id="@+id/seekBarUpperarmLenHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_upperarm_len_header" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarUpperarmLen"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="120"
+				rsb:singleThumb="true"
+				rsb:showLabels="false" />
+
+			<TextView
+				android:id="@+id/seekBarUpperarmCirHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_upperarm_cir_header" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarUpperarmCir"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="22"
+				rsb:absoluteMaxValue="50"
+				rsb:singleThumb="true"
+				rsb:showLabels="false" />
+
+			<CheckBox
+				android:id="@+id/checkBoxPassDisc"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/exp_checkBox_pass_disc_header" />
+
+			<TextView
+				android:id="@+id/seekBarDiscFirstHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_disc_first_header" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarDiscFirstLeft"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false"/>
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarDiscFirstRight"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
+
+			<TextView
+				android:id="@+id/seekBarDiscSecondHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_disc_second_header" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarDiscSecondLeft"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarDiscSecondRight"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
+
+			<TextView
+				android:id="@+id/seekBarDiscThirdHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_disc_third_header" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarDiscThirdLeft"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarDiscThirdRight"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
+
+			<TextView
+			android:id="@+id/seekBarStaticHeader"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="@string/uart_eol"/>
+			android:layout_marginTop="8dp"
+			android:layout_marginLeft="5dp"
+			android:text="@string/exp_seekBar_static_header" />
 
-		<RadioButton
-			android:id="@+id/uart_eol_lf"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:minWidth="80dp"
-			android:checked="true"
-			android:text="@string/uart_eol_lf"/>
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarStaticFirst"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
 
-		<RadioButton
-			android:id="@+id/uart_eol_cr"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:minWidth="80dp"
-			android:text="@string/uart_eol_cr"/>
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarStaticSecond"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
 
-		<RadioButton
-			android:id="@+id/uart_eol_cr_lf"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:minWidth="80dp"
-			android:text="@string/uart_eol_cr_lf"/>
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarStaticThird"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
 
-	</RadioGroup>
+			<CheckBox
+				android:id="@+id/checkBoxDizzness"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/exp_checkBox_dizzness_ortho_header" />
 
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="8dp"
-		android:layout_marginLeft="5dp"
-		android:text="@string/uart_edit_select"
-		android:visibility="gone"/>
+			<TextView
+				android:id="@+id/seekBarOrthoHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_orthos_header" />
 
-	<GridView
-		android:id="@+id/grid"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:horizontalSpacing="4dp"
-		android:numColumns="4"
-		android:verticalSpacing="4dp"/>
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarOrthoFirst"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarOrthoSecond"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarOrthoThird"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
+
+			<TextView
+				android:id="@+id/seekBarIncreaseLoadHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_increase_load_header" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarIncreseLoadFirst"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="50"
+				rsb:singleThumb="true"
+				rsb:showLabels="false" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarIncreseLoadSecond"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="50"
+				rsb:singleThumb="true"
+				rsb:showLabels="false" />
+
+			<TextView
+				android:id="@+id/seekBarIncreaseHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_increase_header" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarIncreaseFirst"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarIncreaseSecond"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarIncreaseThird"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarIncreaseFourth"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
+
+			<TextView
+				android:id="@+id/seekBarDecreaseTemperatureHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_decrease_temperature_header" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarDecreaseTemperature"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="20"
+				rsb:absoluteMaxValue="45"
+				rsb:singleThumb="true"
+				rsb:showLabels="false" />
+
+			<TextView
+				android:id="@+id/seekBarDecreaseHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_decrease_header" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarDecreaseFirst"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarDecreaseSecond"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarDecreaseThird"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarDecreaseFourth"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarDecreaseFifth"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarDecreaseSixth"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="300"
+				rsb:showLabels="false" />
+
+		</LinearLayout>
+	</ScrollView>
 
 </LinearLayout>
