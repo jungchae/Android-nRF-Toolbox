@@ -32,9 +32,9 @@ import org.simpleframework.xml.core.Validate;
 public class UartConfiguration {
 	public static final int COMMANDS_COUNT = 15;
 
-	private static final String[] STRING_CMD_ARRAY = {
-			"User Info", "Height", "Weight", "Disease", "Sleep", "Drink", "Smoking",
-			"Skin Color", "Body Dimensions", "Observer", "Discrepancy",
+	public static final String[] STRING_CMD_ARRAY = {
+			"User", "Height", "Weight", "Disease", "Sleep", "Intake",
+			"Smoking", "Skin", "Dimensions", "Observer", "Discrepancy",
 			"Static", "Orthostatic", "Increase", "Decrease"};
 
 	@Attribute(required = false, empty = "Unnamed")

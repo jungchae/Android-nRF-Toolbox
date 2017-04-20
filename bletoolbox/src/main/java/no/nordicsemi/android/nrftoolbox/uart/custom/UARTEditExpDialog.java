@@ -35,7 +35,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -43,19 +42,43 @@ import android.widget.RadioGroup;
 
 import no.nordicsemi.android.nrftoolbox.R;
 import no.nordicsemi.android.nrftoolbox.uart.UARTActivity;
+import no.nordicsemi.android.nrftoolbox.uart.custom.domain.DimensionConfig;
+import no.nordicsemi.android.nrftoolbox.uart.custom.domain.DiseaseConfig;
+import no.nordicsemi.android.nrftoolbox.uart.custom.domain.HeightConfig;
+import no.nordicsemi.android.nrftoolbox.uart.custom.domain.IExperimentProtocol;
+import no.nordicsemi.android.nrftoolbox.uart.custom.domain.IntakeConfig;
+import no.nordicsemi.android.nrftoolbox.uart.custom.domain.ObserverInfoConfig;
+import no.nordicsemi.android.nrftoolbox.uart.custom.domain.ReportDecreaseConfig;
+import no.nordicsemi.android.nrftoolbox.uart.custom.domain.ReportDiscrepancyConfig;
+import no.nordicsemi.android.nrftoolbox.uart.custom.domain.ReportIncreaseConfig;
+import no.nordicsemi.android.nrftoolbox.uart.custom.domain.ReportOrthostaticConfig;
+import no.nordicsemi.android.nrftoolbox.uart.custom.domain.ReportStaticConfig;
+import no.nordicsemi.android.nrftoolbox.uart.custom.domain.SkinConfig;
+import no.nordicsemi.android.nrftoolbox.uart.custom.domain.SleepConfig;
+import no.nordicsemi.android.nrftoolbox.uart.custom.domain.SmokingConfig;
+import no.nordicsemi.android.nrftoolbox.uart.custom.domain.UserInfoConfig;
+import no.nordicsemi.android.nrftoolbox.uart.custom.domain.WeightConfig;
 import no.nordicsemi.android.nrftoolbox.uart.domain.Command;
+import no.nordicsemi.android.nrftoolbox.uart.domain.UartConfiguration;
 
 public class UARTEditExpDialog extends DialogFragment implements View.OnClickListener, GridView.OnItemClickListener {
 	private final static String ARG_INDEX = "index";
 	private final static String ARG_COMMAND = "command";
 	private final static String ARG_EOL = "eol";
 	private final static String ARG_ICON_INDEX = "iconIndex";
+	private final static int REPORT_DISCREPANCY = 10;
+	private final static int REPORT_STATIC = 11;
+	private final static int REPORT_ORTHOSTATIC = 12;
+	private final static int REPORT_INCREASE = 13;
+	private final static int REPORT_DECREASE = 14;
 	private int mActiveIcon;
 
 	private EditText mField;
 	private CheckBox mActiveCheckBox;
 	private RadioGroup mEOLGroup;
 	private IconAdapter mIconAdapter;
+
+    private IExperimentProtocol mExpProto;
 
 	public static UARTEditExpDialog getInstance(final int index, final Command command) {
 		final UARTEditExpDialog fragment = new UARTEditExpDialog();
@@ -87,62 +110,85 @@ public class UARTEditExpDialog extends DialogFragment implements View.OnClickLis
 		// Get view
 		final View view = inflater.inflate(R.layout.feature_uart_dialog_edit_exp, null);
 
-		// Set EditText view
-		final EditText field = mField = (EditText) view.findViewById(R.id.field);
-		field.setFocusableInTouchMode(false);
-
-		// Set Grid view
-		final GridView grid = (GridView) view.findViewById(R.id.grid);
-		grid.setVisibility(View.GONE);
-
-		// Set CheckBox view
-		final CheckBox checkBox = mActiveCheckBox = (CheckBox) view.findViewById(R.id.active);
-		checkBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
-				field.setEnabled(isChecked);
-				grid.setEnabled(isChecked);
-				if (mIconAdapter != null)
-					mIconAdapter.notifyDataSetChanged();
-			}
-		});
-		checkBox.setVisibility(View.GONE);
-
-		// Set RadioGroup view
-		final RadioGroup eolGroup = mEOLGroup = (RadioGroup) view.findViewById(R.id.uart_eol);
-		if (Command.Icon.USERINFO.ordinal() != iconIndex) eolGroup.setVisibility(View.GONE);
-		switch (Command.Eol.values()[eol]) {
-			case CR_LF:
-				eolGroup.check(R.id.uart_eol_cr_lf);
-				break;
-			case CR:
-				eolGroup.check(R.id.uart_eol_cr);
-				break;
-			case LF:
-			default:
-				eolGroup.check(R.id.uart_eol_lf);
-				break;
-		}
-
-		// Set EditText view
-		final EditText eMail = /*mField = */(EditText) view.findViewById(R.id.editEmail);
-		if (Command.Icon.USERINFO.ordinal() != iconIndex) eMail.setVisibility(View.GONE);
-
-		// Set EditText view
-		final DatePicker datePicker = /*mField = */(DatePicker) view.findViewById(R.id.datePicker);
-		if (Command.Icon.USERINFO.ordinal() != iconIndex) datePicker.setVisibility(View.GONE);
-
-		// Set Initial State
-		field.setText(command);
-		field.setEnabled(active);
+        // Default view configuration
+        // Set EditText view
+        final EditText field = mField = (EditText) view.findViewById(R.id.field);
+        field.setFocusableInTouchMode(false);
+        // Set Grid view
+        final GridView grid = (GridView) view.findViewById(R.id.grid);
+        // Set CheckBox view
+        final CheckBox checkBox = mActiveCheckBox = (CheckBox) view.findViewById(R.id.active);
+		// Set Initial State\
 		checkBox.setChecked(active);
-		grid.setOnItemClickListener(this);
-		grid.setEnabled(active);
-		grid.setAdapter(mIconAdapter = new IconAdapter());
+        checkBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
+                field.setEnabled(isChecked);
+                grid.setEnabled(isChecked);
+                if (mIconAdapter != null)
+                    mIconAdapter.notifyDataSetChanged();
+            }
+        });
 
+        // Initialize Template
+        switch(Command.Icon.values()[iconIndex]) {
+            case USERINFO:
+                mExpProto = new UserInfoConfig(view);
+                break;
+            case HEIGHT:
+                mExpProto = new HeightConfig(view);
+                break;
+            case WEIGHT:
+                mExpProto = new WeightConfig(view);
+                break;
+            case DISEASE:
+                mExpProto = new DiseaseConfig(view);
+                break;
+            case SLEEP:
+                mExpProto = new SleepConfig(view);
+                break;
+            case INTAKE:
+                mExpProto = new IntakeConfig(view);
+                break;
+			case SMOKING:
+				mExpProto = new SmokingConfig(view);
+				break;
+			case SKIN:
+				mExpProto = new SkinConfig(view);
+				break;
+			case DIMENSIONS:
+				mExpProto = new DimensionConfig(view);
+				break;
+			case OBSERVENV:
+				mExpProto = new ObserverInfoConfig(view);
+				break;
+			case REPORTS:
+			case REPORTSCMP:
+				if ( index == REPORT_DISCREPANCY ) {
+					mExpProto = new ReportDiscrepancyConfig(view);
+				} else if ( index == REPORT_STATIC ) {
+					mExpProto = new ReportStaticConfig(view);
+				} else if ( index == REPORT_ORTHOSTATIC ) {
+					mExpProto = new ReportOrthostaticConfig(view);
+				} else if ( index == REPORT_INCREASE ) {
+					mExpProto = new ReportIncreaseConfig(view);
+				} else if ( index == REPORT_DECREASE ) {
+					mExpProto = new ReportDecreaseConfig(view);
+				}
+				break;
+            default:
+                break;
+        }
+
+        if(mExpProto != null) mExpProto.reqeustTemplate(true, command);
+
+		;
 		// As we want to have some validation we can't user the DialogInterface.OnClickListener as it's always dismissing the dialog.
-		final AlertDialog dialog = new AlertDialog.Builder(getActivity()).setCancelable(false).setTitle(command).setPositiveButton(R.string.ok, null)
-				.setNegativeButton(R.string.cancel, null).setView(view).show();
+		final AlertDialog dialog = new AlertDialog.Builder(getActivity())
+											.setCancelable(false)
+											.setTitle(UartConfiguration.STRING_CMD_ARRAY[index])
+											.setPositiveButton(R.string.ok, null)
+											.setNegativeButton(R.string.cancel, null).setView(view).show();
 		final Button okButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
 		okButton.setOnClickListener(this);
 		return dialog;
@@ -151,39 +197,36 @@ public class UARTEditExpDialog extends DialogFragment implements View.OnClickLis
 	@Override
 	public void onClick(final View v) {
 		final boolean active = mActiveCheckBox.isChecked();
-		final String command = mField.getText().toString();
-		int eol;
+//		final String command = mField.getText().toString();
+		String command = "";
+		int eol = 0;
 
-		/*
-		switch (mEOLGroup.getCheckedRadioButtonId()) {
-			case R.id.uart_eol_cr_lf:
-				eol = Command.Eol.CR_LF.index;
-				break;
-			case R.id.uart_eol_cr:
-				eol = Command.Eol.CR.index;
-				break;
-			case R.id.uart_eol_lf:
-			default:
-				eol = Command.Eol.LF.index;
-				break;
-		}
-		*/
-		int i = mEOLGroup.getCheckedRadioButtonId();
-		if (i == R.id.uart_eol_cr_lf) {
-			eol = Command.Eol.CR_LF.index;
+        if(mExpProto != null) {
+			command = mExpProto.cmdJSONstringify();
+            mExpProto.reqeustTemplate(false, "");
+            mEOLGroup = mExpProto.getEolGroup();
 
-		} else if (i == R.id.uart_eol_cr) {
-			eol = Command.Eol.CR.index;
+            if(mEOLGroup != null) {
+                int i = mEOLGroup.getCheckedRadioButtonId();
+                if (i == R.id.uart_eol_cr_lf) {
+                    eol = Command.Eol.CR_LF.index;
 
-		} else {
-			eol = Command.Eol.LF.index;
+                } else if (i == R.id.uart_eol_cr) {
+                    eol = Command.Eol.CR.index;
 
-		}
+                } else {
+                    eol = Command.Eol.LF.index;
+
+                }
+            }
+        }
+
 		// Save values
 		final Bundle args = getArguments();
 		final int index = args.getInt(ARG_INDEX);
 
 		dismiss();
+
 		final UARTActivity parent = (UARTActivity) getActivity();
 		parent.onCommandChanged(index, command, active, eol, mActiveIcon);
 	}

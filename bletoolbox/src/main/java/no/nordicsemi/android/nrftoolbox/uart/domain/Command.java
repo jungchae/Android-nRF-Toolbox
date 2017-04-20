@@ -34,10 +34,10 @@ public class Command {
 		WEIGHT(2),
 		DISEASE(3),
 		SLEEP(4),
-		DRINK(5),
+		INTAKE(5),
 		SMOKING(6),
-		SKINCOLOR(7),
-		SIZEARM(8),
+		SKIN(7),
+		DIMENSIONS(8),
         OBSERVENV(9),
 		REPORTS(10),
 		REPORTSCMP(11);

@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="exp_eol_header">Gender</string>
-    <string name="exp_eol_lf_header">Male</string>
-    <string name="exp_eol_cr_header">Female</string>
-    <string name="exp_eol_cr_lf_header">NA</string>
+    <string name="exp_eol_header_gender">Gender</string>
+    <string name="exp_eol_lf_header_gender">Male</string>
+    <string name="exp_eol_lf_header_gender_1">M</string>
+    <string name="exp_eol_cr_header_gender">Female</string>
+    <string name="exp_eol_cr_header_gender_1">F</string>
+    <string name="exp_eol_cr_lf_header_gender">NA</string>
+    <string name="exp_eol_cr_lf_header_gender_1">U</string>
+    <string name="exp_eol_header_cuff">Cuff Size</string>
+    <string name="exp_eol_lf_header_cuff">S</string>
+    <string name="exp_eol_cr_header_cuff">M</string>
+    <string name="exp_eol_cr_lf_header_cuff">L</string>
     <string name="exp_grid_header">Select icon:</string>
-    <string name="exp_email_hint">e-mail address</string>
-    <string name="exp_datePicker_header">Select date</string>
+    <string name="exp_pname_hint">Patient ID</string>
+    <string name="exp_oname_hint">Observer ID</string>
+    <string name="exp_email_hint">your@example.com</string>
+    <string name="exp_datePicker_header">Select birth date</string>
     <string name="exp_seekBar_height_header">Height</string>
     <string name="exp_seekBar_weight_header">Weight</string>
     <string name="exp_switch_arrhythmias">Do you have arrhythmias?</string>
@@ -17,6 +26,8 @@
     <string name="exp_seekBar_lastsleep_header">Last sleep time</string>
     <string name="exp_seekBar_lastcaffeine_header">Caffeine intake elapsed time</string>
     <string name="exp_seekBar_lastalcohol_header">Alcohol intake elapsed time</string>
+    <string name="exp_seekBar_lastsmoking_header">Last smoking elapsed time</string>
+
     <string name="exp_seekBar_inspectskin_header">Inspect skin color</string>
     <string name="exp_seekBar_upperarm_len_header">Upper arm length</string>
     <string name="exp_seekBar_upperarm_cir_header">Upper arm circumference</string>
