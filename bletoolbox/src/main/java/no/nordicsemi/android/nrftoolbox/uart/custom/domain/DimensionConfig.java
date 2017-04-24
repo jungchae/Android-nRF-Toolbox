@@ -11,20 +11,79 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import no.nordicsemi.android.nrftoolbox.R;
+import no.nordicsemi.android.nrftoolbox.uart.custom.type.BloodPressure;
+import no.nordicsemi.android.nrftoolbox.uart.custom.type.IReport;
 
 /**
  * Created by jungchae on 17. 4. 19.
  */
 
-class Dimension {
+class Dimension implements IReport{
     public static final String NAME = "Dimension";
     public static final String NAME_CUFFSIZE = "cuffsize";
     public static final String NAME_UPPERARMLEN = "upperarmlen";
     public static final String NAME_UPPERARMCIR = "upperarmcir";
     public static final String NAME_UNIT = "cm";
-    public String cuffsize;
-    public int upperarmlen;
-    public int upperarmcir;
+    public String cuffsize = "";
+    public int upperarmlen = 0;
+    public int upperarmcir = 0;
+
+    @Override
+    public int getMaxTrialCount() {
+        return -1;
+    }
+
+    @Override
+    public boolean getBoolean(String sKey) {
+        return false;
+    }
+
+    @Override
+    public int getInt(String sKey) {
+        int ret = -1;
+        switch(sKey) {
+            case NAME_UPPERARMLEN:
+                ret = upperarmlen;
+                break;
+            case NAME_UPPERARMCIR:
+                ret = upperarmcir;
+                break;
+        }
+
+        return ret;
+    }
+
+    @Override
+    public String getString(String sKey) {
+        String ret = "";
+        switch(sKey) {
+            case "NAME":
+                ret = NAME;
+                break;
+            case NAME_CUFFSIZE:
+                ret = cuffsize;
+                break;
+            case NAME_UPPERARMLEN:
+                ret = upperarmlen + " " + NAME_UNIT;
+                break;
+            case NAME_UPPERARMCIR:
+                ret = upperarmcir + " " + NAME_UNIT;
+                break;
+            default:
+        }
+
+        return ret;
+    }
+
+    @Override
+    public String[] getRegisteredFileInfo() {
+        return new String[0];
+    }
+
+    @Override
+    public BloodPressure[] getBloodPressure() {
+        return new BloodPressure[0];
+    }
 }
 
 public class DimensionConfig implements IExperimentProtocol {
@@ -106,31 +165,39 @@ public class DimensionConfig implements IExperimentProtocol {
         return jsonWrapper.toString();
     }
 
+    static public Object cmdJSONparse(String cmd) {
+        Dimension result = new Dimension();
+        JSONObject jWrapper = null;
+        try {
+            jWrapper = new JSONObject(cmd);
+            JSONObject jObj = jWrapper.getJSONObject(Dimension.NAME);
+
+            result.cuffsize = jObj.getString(Dimension.NAME_CUFFSIZE);
+            result.upperarmlen = jObj.getInt(Dimension.NAME_UPPERARMLEN);
+            result.upperarmcir = jObj.getInt(Dimension.NAME_UPPERARMCIR);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public RadioGroup getEolGroup(){
         return null;
     }
 
     private void uiConfiguration(String cmd) {
-        try {
-            if(cmd=="") return;
-            JSONObject jWrapper = new JSONObject(cmd);
-            JSONObject jObj = jWrapper.getJSONObject(Dimension.NAME);
+        if(cmd=="") return;
 
-            mReport.cuffsize = jObj.getString(Dimension.NAME_CUFFSIZE);
-            mReport.upperarmlen = jObj.getInt(Dimension.NAME_UPPERARMLEN);
-            mReport.upperarmcir = jObj.getInt(Dimension.NAME_UPPERARMCIR);
+        mReport = (Dimension)cmdJSONparse(cmd);
 
-            if( mReport.cuffsize.equals(mEolGroup_lf.getText().toString()) ) {
-                mEolGroup.check(R.id.uart_eol_lf);
-            } else if( mReport.cuffsize.equals(mEolGroup_cr.getText().toString()) ) {
-                mEolGroup.check(R.id.uart_eol_cr);
-            } else {
-                mEolGroup.check(R.id.uart_eol_cr_lf);
-            }
-            mSbrUpperArmLen.setSelectedMaxValue(mReport.upperarmlen);
-            mSbrUpperArmCir.setSelectedMaxValue(mReport.upperarmcir);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if( mReport.cuffsize !=null && mReport.cuffsize.equals(mEolGroup_lf.getText().toString()) ) {
+            mEolGroup.check(R.id.uart_eol_lf);
+        } else if( mReport.cuffsize !=null && mReport.cuffsize.equals(mEolGroup_cr.getText().toString()) ) {
+            mEolGroup.check(R.id.uart_eol_cr);
+        } else {
+            mEolGroup.check(R.id.uart_eol_cr_lf);
         }
+        mSbrUpperArmLen.setSelectedMaxValue(mReport.upperarmlen);
+        mSbrUpperArmCir.setSelectedMaxValue(mReport.upperarmcir);
     }
 }

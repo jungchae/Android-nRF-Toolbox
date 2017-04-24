@@ -8,22 +8,78 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import no.nordicsemi.android.nrftoolbox.R;
+import no.nordicsemi.android.nrftoolbox.uart.custom.type.BloodPressure;
+import no.nordicsemi.android.nrftoolbox.uart.custom.type.IReport;
 
 /**
  * Created by jungchae on 17. 4. 19.
  */
 
-class Disease {
+class Disease implements IReport {
     public static final String NAME = "Disease";
     public static final String NAME_ARRYTHMIAS = "arrythmias";
     public static final String NAME_ANTIHYPERTENSIVE = "antihypertensive";
     public static final String NAME_DIABETES = "diabetes";
     public static final String NAME_PREGNANT = "pregnant";
     public static final String NAME_UNIT = "";
-    public boolean arrythmias;
-    public boolean antihypertensive;
-    public boolean diabetes;
-    public boolean pregnant;
+    public boolean arrythmias = false;
+    public boolean antihypertensive = false;
+    public boolean diabetes = false;
+    public boolean pregnant = false;
+
+    @Override
+    public int getMaxTrialCount() {
+        return -1;
+    }
+
+    @Override
+    public boolean getBoolean(String sKey) {
+        boolean ret = false;
+        switch(sKey) {
+            case NAME_ARRYTHMIAS:
+                ret = arrythmias;
+                break;
+            case NAME_ANTIHYPERTENSIVE:
+                ret = antihypertensive;
+                break;
+            case NAME_DIABETES:
+                ret = diabetes;
+                break;
+            case NAME_PREGNANT:
+                ret = pregnant;
+                break;
+            default:
+        }
+        return ret;
+    }
+
+    @Override
+    public int getInt(String sKey) {
+        return -1;
+    }
+
+    @Override
+    public String getString(String sKey) {
+        String ret = "";
+
+        switch(ret) {
+            case "NAME":
+                ret = NAME;
+                break;
+        }
+
+        return ret;
+    }
+
+    @Override
+    public String[] getRegisteredFileInfo() {
+        return new String[0];
+    }
+
+    @Override
+    public BloodPressure[] getBloodPressure() {
+        return new BloodPressure[0];
+    }
 }
 
 public class DiseaseConfig implements IExperimentProtocol {
@@ -78,28 +134,35 @@ public class DiseaseConfig implements IExperimentProtocol {
         return jsonWrapper.toString();
     }
 
+    static public Object cmdJSONparse(String cmd) {
+        Disease result = new Disease();
+        JSONObject jWrapper = null;
+        try {
+            jWrapper = new JSONObject(cmd);
+            JSONObject jObj = jWrapper.getJSONObject(Disease.NAME);
+
+            result.arrythmias = jObj.getBoolean(Disease.NAME_ARRYTHMIAS);
+            result.antihypertensive = jObj.getBoolean(Disease.NAME_ANTIHYPERTENSIVE);
+            result.diabetes = jObj.getBoolean(Disease.NAME_DIABETES);
+            result.pregnant = jObj.getBoolean(Disease.NAME_PREGNANT);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public RadioGroup getEolGroup(){
         return null;
     }
 
     private void uiConfiguration(String cmd) {
-        try {
-            if(cmd=="") return;
-            JSONObject jWrapper = new JSONObject(cmd);
-            JSONObject jObj = jWrapper.getJSONObject(Disease.NAME);
+        if(cmd=="") return;
 
-            mReport.arrythmias = jObj.getBoolean(Disease.NAME_ARRYTHMIAS);
-            mReport.antihypertensive = jObj.getBoolean(Disease.NAME_ANTIHYPERTENSIVE);
-            mReport.diabetes = jObj.getBoolean(Disease.NAME_DIABETES);
-            mReport.pregnant = jObj.getBoolean(Disease.NAME_PREGNANT);
+        mReport = (Disease)cmdJSONparse(cmd);
 
-            mSwArrhythmias.setChecked(mReport.arrythmias);
-            mSwAntihypertensive.setChecked(mReport.antihypertensive);
-            mSwDiabetes.setChecked(mReport.diabetes);
-            mSwPregnant.setChecked(mReport.pregnant);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        mSwArrhythmias.setChecked(mReport.arrythmias);
+        mSwAntihypertensive.setChecked(mReport.antihypertensive);
+        mSwDiabetes.setChecked(mReport.diabetes);
+        mSwPregnant.setChecked(mReport.pregnant);
     }
 }

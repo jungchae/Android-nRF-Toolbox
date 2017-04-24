@@ -10,4 +10,5 @@ public interface IExperimentProtocol {
     RadioGroup getEolGroup();
     void reqeustTemplate(boolean flag, String cmd);
     String cmdJSONstringify();
+//    Object cmdJSONparse(String cmd);
 }

@@ -11,12 +11,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import no.nordicsemi.android.nrftoolbox.R;
+import no.nordicsemi.android.nrftoolbox.uart.custom.type.BloodPressure;
+import no.nordicsemi.android.nrftoolbox.uart.custom.type.IReport;
 
 /**
  * Created by jungchae on 17. 4. 19.
  */
 
-class ObserverInfo {
+class ObserverInfo implements IReport {
     public static final String NAME = "ObserverInfo";
     public static final String NAME_UID = "oid";
     public static final String NAME_GENDER = "gender";
@@ -27,6 +29,65 @@ class ObserverInfo {
     public String gender;
     public String birthdate;
     public String email;
+
+    @Override
+    public int getMaxTrialCount() {
+        return -1;
+    }
+
+    @Override
+    public boolean getBoolean(String sKey) {
+        return false;
+    }
+
+    @Override
+    public int getInt(String sKey) {
+        int ret = -1;
+
+        switch(sKey) {
+            case NAME_UID:
+                ret = Integer.parseInt(oid);
+                break;
+            default:
+        }
+
+        return ret;
+    }
+
+    @Override
+    public String getString(String sKey) {
+        String ret = "";
+
+        switch(sKey) {
+            case "NAME":
+                ret = NAME;
+                break;
+            case NAME_UID:
+                ret = oid;
+                break;
+            case NAME_GENDER:
+                ret = gender;
+                break;
+            case NAME_BIRTHDATE:
+                ret = birthdate;
+                break;
+            case NAME_EMAIL:
+                ret = email;
+                break;
+            default:
+        }
+        return ret;
+    }
+
+    @Override
+    public String[] getRegisteredFileInfo() {
+        return new String[0];
+    }
+
+    @Override
+    public BloodPressure[] getBloodPressure() {
+        return new BloodPressure[0];
+    }
 }
 
 public class ObserverInfoConfig implements IExperimentProtocol {
@@ -114,35 +175,47 @@ public class ObserverInfoConfig implements IExperimentProtocol {
         return jsonWrapper.toString();
     }
 
+    static public Object cmdJSONparse(String cmd) {
+        ObserverInfo result = new ObserverInfo();
+
+        JSONObject jWrapper = null;
+        try {
+            jWrapper = new JSONObject(cmd);
+            JSONObject jObj = jWrapper.getJSONObject(ObserverInfo.NAME);
+            result.oid= jObj.getString(ObserverInfo.NAME_UID);
+            result.email= jObj.getString(ObserverInfo.NAME_EMAIL);
+            result.gender= jObj.getString(ObserverInfo.NAME_GENDER);
+            result.birthdate= jObj.getString(ObserverInfo.NAME_BIRTHDATE);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     public RadioGroup getEolGroup(){
         return mEolGroup;
     }
 
     private void uiConfiguration(String cmd) {
-        try {
-            if(cmd=="") return;
-            JSONObject jWrapper = new JSONObject(cmd);
-            JSONObject jObj = jWrapper.getJSONObject(ObserverInfo.NAME);
-            mReport.oid= jObj.getString(ObserverInfo.NAME_UID);
-            mReport.email= jObj.getString(ObserverInfo.NAME_EMAIL);
-            mReport.gender= jObj.getString(ObserverInfo.NAME_GENDER);
-            mReport.birthdate= jObj.getString(ObserverInfo.NAME_BIRTHDATE);
+        if(cmd=="") return;
 
-            mName.setText(mReport.oid);
-            mEmail.setText(mReport.email);
-            if( mReport.gender.equals(mEolGroup_lf.getText().toString()) ) {
-                mEolGroup.check(R.id.uart_eol_lf);
-            } else if(mReport.gender.equals(mEolGroup_cr.getText().toString()) ) {
-                mEolGroup.check(R.id.uart_eol_cr);
-            } else {
-                mEolGroup.check(R.id.uart_eol_cr_lf);
-            }
+        mReport = (ObserverInfo) cmdJSONparse(cmd);
+
+        mName.setText(mReport.oid);
+        mEmail.setText(mReport.email);
+        if( mReport.gender != null && mReport.gender.equals(mEolGroup_lf.getText().toString()) ) {
+            mEolGroup.check(R.id.uart_eol_lf);
+        } else if( mReport.gender != null && mReport.gender.equals(mEolGroup_cr.getText().toString()) ) {
+            mEolGroup.check(R.id.uart_eol_cr);
+        } else {
+            mEolGroup.check(R.id.uart_eol_cr_lf);
+        }
+        if(mReport.birthdate !=null) {
             String[] date = mReport.birthdate.split("/");
             mDatePicker.updateDate( Integer.parseInt(date[2])
                     , Integer.parseInt(date[1])
                     , Integer.parseInt(date[0]) );
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
 }

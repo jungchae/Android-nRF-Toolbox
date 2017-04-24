@@ -10,16 +10,64 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import no.nordicsemi.android.nrftoolbox.R;
+import no.nordicsemi.android.nrftoolbox.uart.custom.type.BloodPressure;
+import no.nordicsemi.android.nrftoolbox.uart.custom.type.IReport;
 
 /**
  * Created by jungchae on 17. 4. 19.
  */
 
-class Height {
+class Height implements IReport{
     public static final String NAME = "Height";
     public static final String NAME_HEIGHT = "height";
     public static final String NAME_UNIT = "cm";
     public int height;
+
+    @Override
+    public int getMaxTrialCount() {
+        return -1;
+    }
+
+    @Override
+    public boolean getBoolean(String sKey) {
+        return false;
+    }
+
+    @Override
+    public int getInt(String sKey) {
+        int ret = -1;
+        switch (sKey) {
+            case NAME_HEIGHT:
+                ret = height;
+                break;
+            default:
+        }
+        return ret;
+    }
+
+    @Override
+    public String getString(String sKey) {
+        String ret = "";
+
+        switch (sKey) {
+            case "NAME":
+                ret = NAME;
+            case NAME_HEIGHT:
+                ret = height + " " + NAME_UNIT;
+                break;
+        }
+        return ret;
+    }
+
+    @Override
+    public String[] getRegisteredFileInfo() {
+        return new String[0];
+    }
+
+    @Override
+    public BloodPressure[] getBloodPressure() {
+        return new BloodPressure[0];
+    }
 }
 
 public class HeightConfig implements IExperimentProtocol {
@@ -62,21 +110,31 @@ public class HeightConfig implements IExperimentProtocol {
         return jsonWrapper.toString();
     }
 
+    static public Object cmdJSONparse(String cmd) {
+        Height result = new Height();
+        JSONObject jWrapper = null;
+        try {
+            jWrapper = new JSONObject(cmd);
+
+            JSONObject jObj = jWrapper.getJSONObject(Height.NAME);
+
+            result.height = jObj.getInt(Height.NAME_HEIGHT);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     public RadioGroup getEolGroup(){
         return null;
     }
 
     private void uiConfiguration(String cmd) {
-        try {
-            if(cmd=="") return;
-            JSONObject jWrapper = new JSONObject(cmd);
-            JSONObject jObj = jWrapper.getJSONObject(Height.NAME);
+        if(cmd=="") return;
 
-            mReport.height = jObj.getInt(Height.NAME_HEIGHT);
+        mReport = (Height) cmdJSONparse(cmd);
 
-            mSbrHeight.setSelectedMaxValue(mReport.height);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        mSbrHeight.setSelectedMaxValue(mReport.height);
     }
 }

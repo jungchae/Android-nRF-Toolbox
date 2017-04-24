@@ -22,10 +22,17 @@
     <string name="exp_switch_headerantihypertensives">Are you taking antihypertensives?</string>
     <string name="exp_switch_diabetes">Do you have diabetes?</string>
     <string name="exp_switch_pregnant">Are you pregnant?</string>
-    <string name="exp_seekBar_avgsleep_header">Average sleep time</string>
+
+    <string name="exp_sleep_s1_header">Sleep session 1st</string>
+    <string name="exp_sleep_s2_header">Sleep session 2nd</string>
+    <string name="exp_seekBar_avgsleep_header">Average sdleep time</string>
     <string name="exp_seekBar_lastsleep_header">Last sleep time</string>
+    <string name="exp_intake_s1_header">Intake session 1st</string>
+    <string name="exp_intake_s2_header">Intake session 2nd</string>
     <string name="exp_seekBar_lastcaffeine_header">Caffeine intake elapsed time</string>
     <string name="exp_seekBar_lastalcohol_header">Alcohol intake elapsed time</string>
+    <string name="exp_smoking_s1_header">Smoking session 1st</string>
+    <string name="exp_smoking_s2_header">Smoking session 2nd</string>
     <string name="exp_seekBar_lastsmoking_header">Last smoking elapsed time</string>
 
     <string name="exp_seekBar_inspectskin_header">Inspect skin color</string>
@@ -47,4 +54,29 @@
     <string name="exp_seekBar_decrease_temperature_header">Setting water temperature</string>
     <string name="exp_seekBar_decrease_header">Phase 4 : Decrease test</string>
 
+    <string name="exp_fname_hint">A filename is required.</string>
+
+    <string name="exp_ctrl_labid_header">Lab.ID</string>
+    <string name="exp_ctrl_labid_il">IL</string>
+    <string name="exp_ctrl_labid_rl">RL</string>
+    <string name="exp_ctrl_session_header">Session</string>
+    <string name="exp_ctrl_phase_header">Test type</string>
+    <string name="exp_ctrl_phase_1">Calib.use</string>
+    <string name="exp_ctrl_phase_2">Static</string>
+    <string name="exp_ctrl_phase_3">Orthostatic</string>
+    <string name="exp_ctrl_phase_4">Increase</string>
+    <string name="exp_ctrl_phase_5">Decsease</string>
+    <string name="exp_ctrl_phase_6">Calib.test</string>
+    <string name="exp_ctrl_status_header">Trial count</string>
+    <string name="exp_ctrl_query_saving">Do you want to start saving data?</string>
+    <string name="exp_logging_warning_not_changed">Should change all properties</string>
+    <string name="exp_logging_warning_invalid_user">Enter correct user information</string>
+    <string name="exp_logging_prefix">PPG</string>
+    <string name="exp_logging_ext">bin</string>
+    <string name="exp_logging_path">WD_PPG_PILOT</string>
+    <string name="exp_logging_fnameIndicator">File name notification</string>
+
+    <string name="exp_skey_uid">uid</string>
+    <string name="exp_skey_oid">oid</string>
 </resources>
+

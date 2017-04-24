@@ -10,16 +10,64 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import no.nordicsemi.android.nrftoolbox.R;
+import no.nordicsemi.android.nrftoolbox.uart.custom.type.BloodPressure;
+import no.nordicsemi.android.nrftoolbox.uart.custom.type.IReport;
 
 /**
  * Created by jungchae on 17. 4. 19.
  */
 
-class Weight {
+class Weight implements IReport{
     public static final String NAME = "Weight";
     public static final String NAME_WEIGHT= "weight";
     public static final String NAME_UNIT = "kg";
     public int weight;
+
+    @Override
+    public int getMaxTrialCount() {
+        return -1;
+    }
+
+    @Override
+    public boolean getBoolean(String sKey) {
+        return false;
+    }
+
+    @Override
+    public int getInt(String sKey) {
+        int ret = -1;
+        switch (sKey) {
+            case NAME_WEIGHT:
+                ret = weight;
+                break;
+            default:
+        }
+        return ret;
+    }
+
+    @Override
+    public String getString(String sKey) {
+        String ret = "";
+
+        switch (sKey) {
+            case "NAME":
+                ret = NAME;
+            case NAME_WEIGHT:
+                ret = weight + " " + NAME_UNIT;
+                break;
+        }
+        return ret;
+    }
+
+    @Override
+    public String[] getRegisteredFileInfo() {
+        return new String[0];
+    }
+
+    @Override
+    public BloodPressure[] getBloodPressure() {
+        return new BloodPressure[0];
+    }
 }
 
 public class WeightConfig implements IExperimentProtocol {
@@ -62,19 +110,27 @@ public class WeightConfig implements IExperimentProtocol {
         return jsonWrapper.toString();
     }
 
+    static public Object cmdJSONparse(String cmd) {
+        Weight result = new Weight();
+
+        JSONObject jWrapper = null;
+        try {
+            jWrapper = new JSONObject(cmd);
+            JSONObject jObj = jWrapper.getJSONObject(Weight.NAME);
+            result.weight = jObj.getInt(Weight.NAME_WEIGHT);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public RadioGroup getEolGroup(){
         return null;
     }
 
     private void uiConfiguration(String cmd) {
-        try {
-            if(cmd=="") return;
-            JSONObject jWrapper = new JSONObject(cmd);
-            JSONObject jObj = jWrapper.getJSONObject(Weight.NAME);
-            mReport.weight= jObj.getInt(Weight.NAME_WEIGHT);
-            mSbrWeight.setSelectedMaxValue(mReport.weight);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        if(cmd=="") return;
+        mReport = (Weight) cmdJSONparse(cmd);
+        mSbrWeight.setSelectedMaxValue(mReport.weight);
     }
 }
