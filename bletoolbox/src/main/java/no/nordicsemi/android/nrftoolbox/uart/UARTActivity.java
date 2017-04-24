@@ -138,6 +138,9 @@ public class UARTActivity extends BleProfileServiceReadyActivity<UARTService.UAR
 		mConfigurationListener = listener;
 	}
 
+	public UartConfiguration getConfiguration() {
+		return mConfiguration;
+	}
 	@Override
 	protected Class<? extends BleProfileService> getServiceClass() {
 		return UARTService.class;
@@ -839,6 +842,7 @@ public class UARTActivity extends BleProfileServiceReadyActivity<UARTService.UAR
 			writer.close();
 
 			// Notify user about the file
+			/*
 			final Intent intent = new Intent(Intent.ACTION_VIEW);
 			intent.setDataAndType(Uri.fromFile(file), "text/xml");
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -847,6 +851,7 @@ public class UARTActivity extends BleProfileServiceReadyActivity<UARTService.UAR
 					.setAutoCancel(true).setShowWhen(true).setTicker(getText(R.string.uart_configuration_export_succeeded_ticker)).setSmallIcon(android.R.drawable.stat_notify_sdcard).build();
 			final NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 			nm.notify(fileName, 823, notification);
+			*/
 		} catch (final Exception e) {
 			Log.e(TAG, "Error while exporting configuration", e);
 			Toast.makeText(this, R.string.uart_configuration_save_error, Toast.LENGTH_SHORT).show();

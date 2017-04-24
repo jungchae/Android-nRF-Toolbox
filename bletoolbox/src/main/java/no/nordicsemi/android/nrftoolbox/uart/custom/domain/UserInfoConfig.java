@@ -11,22 +11,81 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import no.nordicsemi.android.nrftoolbox.R;
+import no.nordicsemi.android.nrftoolbox.uart.custom.type.BloodPressure;
+import no.nordicsemi.android.nrftoolbox.uart.custom.type.IReport;
 
 /**
  * Created by jungchae on 17. 4. 19.
  */
-
-class UserInfo {
+class UserInfo implements IReport {
     public static final String NAME = "PatientInfo";
     public static final String NAME_UID = "uid";
     public static final String NAME_GENDER = "gender";
     public static final String NAME_BIRTHDATE = "birthdate";
     public static final String NAME_EMAIL = "email";
     public static final String NAME_UNIT = "";
-    public String uid;
-    public String gender;
-    public String birthdate;
-    public String email;
+    public String uid = "0";
+    public String gender = "";
+    public String birthdate = "";
+    public String email = "";
+
+    @Override
+    public int getMaxTrialCount() {
+        return -1;
+    }
+
+    @Override
+    public boolean getBoolean(String sKey) {
+        return false;
+    }
+
+    @Override
+    public int getInt(String sKey) {
+        int ret = -1;
+
+        switch(sKey) {
+            case NAME_UID:
+                ret = Integer.parseInt(uid);
+                break;
+            default:
+        }
+        return ret;
+    }
+
+    @Override
+    public String getString(String sKey) {
+        String ret = "";
+
+        switch(sKey) {
+            case "NAME":
+                ret = NAME;
+                break;
+            case NAME_UID:
+                ret = uid;
+                break;
+            case NAME_GENDER:
+                ret = gender;
+                break;
+            case NAME_BIRTHDATE:
+                ret = birthdate;
+                break;
+            case NAME_EMAIL:
+                ret = email;
+                break;
+            default:
+        }
+        return ret;
+    }
+
+    @Override
+    public String[] getRegisteredFileInfo() {
+        return new String[0];
+    }
+
+    @Override
+    public BloodPressure[] getBloodPressure() {
+        return new BloodPressure[0];
+    }
 }
 
 public class UserInfoConfig implements IExperimentProtocol {
@@ -43,6 +102,24 @@ public class UserInfoConfig implements IExperimentProtocol {
     final private DatePicker mDatePicker;
 
     private UserInfo mReport;
+
+    static public UserInfo cmdJSONparse(String cmd) {
+        UserInfo result = new UserInfo();
+
+        JSONObject jWrapper = null;
+        try {
+            jWrapper = new JSONObject(cmd);
+            JSONObject jObj = jWrapper.getJSONObject(UserInfo.NAME);
+            result.uid= jObj.getString(UserInfo.NAME_UID);
+            result.email= jObj.getString(UserInfo.NAME_EMAIL);
+            result.gender= jObj.getString(UserInfo.NAME_GENDER);
+            result.birthdate= jObj.getString(UserInfo.NAME_BIRTHDATE);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 
     public UserInfoConfig(View view) {
         mView = view;
@@ -119,30 +196,23 @@ public class UserInfoConfig implements IExperimentProtocol {
     }
 
     private void uiConfiguration(String cmd) {
-        try {
-            if(cmd=="") return;
-            JSONObject jWrapper = new JSONObject(cmd);
-            JSONObject jObj = jWrapper.getJSONObject(UserInfo.NAME);
-            mReport.uid= jObj.getString(UserInfo.NAME_UID);
-            mReport.email= jObj.getString(UserInfo.NAME_EMAIL);
-            mReport.gender= jObj.getString(UserInfo.NAME_GENDER);
-            mReport.birthdate= jObj.getString(UserInfo.NAME_BIRTHDATE);
+        if(cmd=="") return;
+        mReport = cmdJSONparse(cmd);
 
-            mName.setText(mReport.uid);
-            mEmail.setText(mReport.email);
-            if( mReport.gender.equals(mEolGroup_lf.getText().toString()) ) {
-                mEolGroup.check(R.id.uart_eol_lf);
-            } else if( mReport.gender.equals(mEolGroup_cr.getText().toString()) ) {
-                mEolGroup.check(R.id.uart_eol_cr);
-            } else {
-                mEolGroup.check(R.id.uart_eol_cr_lf);
-            }
+        mName.setText(mReport.uid);
+        mEmail.setText(mReport.email);
+        if( !mReport.gender.equals("") && mReport.gender.equals(mEolGroup_lf.getText().toString()) ) {
+            mEolGroup.check(R.id.uart_eol_lf);
+        } else if( !mReport.gender.equals("") && mReport.gender.equals(mEolGroup_cr.getText().toString()) ) {
+            mEolGroup.check(R.id.uart_eol_cr);
+        } else {
+            mEolGroup.check(R.id.uart_eol_cr_lf);
+        }
+        if(!mReport.birthdate.equals("")) {
             String[] date = mReport.birthdate.split("/");
             mDatePicker.updateDate( Integer.parseInt(date[2])
-                                    , Integer.parseInt(date[1])
-                                    , Integer.parseInt(date[0]) );
-        } catch (JSONException e) {
-            e.printStackTrace();
+                    , Integer.parseInt(date[1])
+                    , Integer.parseInt(date[0]) );
         }
     }
 }

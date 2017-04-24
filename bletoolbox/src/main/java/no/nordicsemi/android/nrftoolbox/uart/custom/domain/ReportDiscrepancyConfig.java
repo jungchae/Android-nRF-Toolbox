@@ -13,12 +13,13 @@ import org.json.JSONObject;
 
 import no.nordicsemi.android.nrftoolbox.R;
 import no.nordicsemi.android.nrftoolbox.uart.custom.type.BloodPressure;
+import no.nordicsemi.android.nrftoolbox.uart.custom.type.IReport;
 
 /**
  * Created by jungchae on 17. 4. 19.
  */
 
-class ReportDiscrepancy {
+class ReportDiscrepancy implements IReport{
     public static final String NAME = "ReportDiscrepancy";
     public static final String NAME_PASSDISCREPANCY = "passdiscrepancy";
     public static final String NAME_SYS = "systolic";
@@ -30,11 +31,58 @@ class ReportDiscrepancy {
     public boolean passdiscrepancy;
     public BloodPressure[] lvalues = new BloodPressure[TRIAL_COUNT];
     public BloodPressure[] rvalues = new BloodPressure[TRIAL_COUNT];
+
     ReportDiscrepancy() {
         for (int i = 0; i < TRIAL_COUNT; i++) {
             lvalues[i] = new BloodPressure();
             rvalues[i] = new BloodPressure();
         }
+    }
+
+    @Override
+    public int getMaxTrialCount() {
+        return TRIAL_COUNT;
+    }
+
+    @Override
+    public boolean getBoolean(String sKey) {
+        boolean ret = false;
+        switch(sKey) {
+            case NAME_PASSDISCREPANCY:
+                ret = passdiscrepancy;
+                break;
+            default:
+        }
+        return ret;
+    }
+
+    @Override
+    public int getInt(String sKey) {
+        int ret = -1;
+
+        return ret;
+    }
+
+    @Override
+    public String getString(String sKey) {
+        String ret = "";
+
+        switch(sKey) {
+            case "NAME":
+                ret = NAME;
+                break;
+        }
+        return ret;
+    }
+
+    @Override
+    public String[] getRegisteredFileInfo() {
+        return new String[0];
+    }
+
+    @Override
+    public BloodPressure[] getBloodPressure() {
+        return new BloodPressure[0];
     }
 }
 
@@ -133,47 +181,57 @@ public class ReportDiscrepancyConfig implements IExperimentProtocol {
         return jsonWrapper.toString();
     }
 
-    public RadioGroup getEolGroup(){
-        return null;
-    }
+    static public Object cmdJSONparse(String cmd) {
+        ReportDiscrepancy result = new ReportDiscrepancy();
 
-    private void uiConfiguration(String cmd) {
         try {
-            if(cmd=="") return;
             JSONObject jWrapper = new JSONObject(cmd);
-            JSONObject jObj = jWrapper.getJSONObject(ReportDiscrepancy.NAME);
-            mReport.passdiscrepancy = jObj.getBoolean(ReportDiscrepancy.NAME_PASSDISCREPANCY);
+            JSONObject jObj = null;
+            jObj = jWrapper.getJSONObject(ReportDiscrepancy.NAME);
+            result.passdiscrepancy = jObj.getBoolean(ReportDiscrepancy.NAME_PASSDISCREPANCY);
 
             JSONArray jArr = jObj.getJSONArray(ReportDiscrepancy.NAME_LEFTVALS);
 
             for (int i=0; i < jArr.length(); i++) {
                 JSONObject obj = jArr.getJSONObject(i);
-                mReport.lvalues[i].systolic = obj.getInt(ReportDiscrepancy.NAME_SYS);
-                mReport.lvalues[i].diastolic = obj.getInt(ReportDiscrepancy.NAME_DIA);
+                result.lvalues[i].systolic = obj.getInt(ReportDiscrepancy.NAME_SYS);
+                result.lvalues[i].diastolic = obj.getInt(ReportDiscrepancy.NAME_DIA);
             }
 
             jArr = jObj.getJSONArray(ReportDiscrepancy.NAME_RIGHTVALS);
             for (int i=0; i < jArr.length(); i++) {
                 JSONObject obj = jArr.getJSONObject(i);
-                mReport.rvalues[i].systolic = obj.getInt(ReportDiscrepancy.NAME_SYS);
-                mReport.rvalues[i].diastolic = obj.getInt(ReportDiscrepancy.NAME_DIA);
+                result.rvalues[i].systolic = obj.getInt(ReportDiscrepancy.NAME_SYS);
+                result.rvalues[i].diastolic = obj.getInt(ReportDiscrepancy.NAME_DIA);
             }
-
-            mCbPassDisc.setChecked(mReport.passdiscrepancy);
-            mSbrDiscFirstLeft.setSelectedMaxValue(mReport.lvalues[0].systolic);
-            mSbrDiscFirstLeft.setSelectedMinValue(mReport.lvalues[0].diastolic);
-            mSbrDiscFirstRight.setSelectedMaxValue(mReport.rvalues[0].systolic);
-            mSbrDiscFirstRight.setSelectedMinValue(mReport.rvalues[0].diastolic);
-            mSbrDiscSecondLeft.setSelectedMaxValue(mReport.lvalues[1].systolic);
-            mSbrDiscSecondLeft.setSelectedMinValue(mReport.lvalues[1].diastolic);
-            mSbrDiscSecondRight.setSelectedMaxValue(mReport.rvalues[1].systolic);
-            mSbrDiscSecondRight.setSelectedMinValue(mReport.rvalues[1].diastolic);
-            mSbrDiscThirdLeft.setSelectedMaxValue(mReport.lvalues[2].systolic);
-            mSbrDiscThirdLeft.setSelectedMinValue(mReport.lvalues[2].diastolic);
-            mSbrDiscThirdRight.setSelectedMaxValue(mReport.rvalues[2].systolic);
-            mSbrDiscThirdRight.setSelectedMinValue(mReport.rvalues[2].diastolic);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        return result;
+    }
+
+    public RadioGroup getEolGroup(){
+        return null;
+    }
+
+    private void uiConfiguration(String cmd) {
+        if(cmd=="") return;
+
+        mReport = (ReportDiscrepancy) cmdJSONparse(cmd);
+
+        mCbPassDisc.setChecked(mReport.passdiscrepancy);
+        mSbrDiscFirstLeft.setSelectedMaxValue(mReport.lvalues[0].systolic);
+        mSbrDiscFirstLeft.setSelectedMinValue(mReport.lvalues[0].diastolic);
+        mSbrDiscFirstRight.setSelectedMaxValue(mReport.rvalues[0].systolic);
+        mSbrDiscFirstRight.setSelectedMinValue(mReport.rvalues[0].diastolic);
+        mSbrDiscSecondLeft.setSelectedMaxValue(mReport.lvalues[1].systolic);
+        mSbrDiscSecondLeft.setSelectedMinValue(mReport.lvalues[1].diastolic);
+        mSbrDiscSecondRight.setSelectedMaxValue(mReport.rvalues[1].systolic);
+        mSbrDiscSecondRight.setSelectedMinValue(mReport.rvalues[1].diastolic);
+        mSbrDiscThirdLeft.setSelectedMaxValue(mReport.lvalues[2].systolic);
+        mSbrDiscThirdLeft.setSelectedMinValue(mReport.lvalues[2].diastolic);
+        mSbrDiscThirdRight.setSelectedMaxValue(mReport.rvalues[2].systolic);
+        mSbrDiscThirdRight.setSelectedMinValue(mReport.rvalues[2].diastolic);
     }
 }

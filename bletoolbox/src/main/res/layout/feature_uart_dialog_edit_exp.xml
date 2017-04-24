@@ -47,7 +47,8 @@
 			android:layout_height="wrap_content"
 			android:ems="10"
 			android:hint="@string/exp_pname_hint"
-			android:inputType="textPersonName"
+			android:inputType="number"
+			android:maxLength="3"
 			android:visibility="gone" />
 
 		<EditText
@@ -55,8 +56,9 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:ems="10"
-			android:inputType="textPersonName"
 			android:hint="@string/exp_oname_hint"
+			android:inputType="number"
+			android:maxLength="3"
 			android:visibility="gone" />
 
 		<CheckBox
@@ -226,9 +228,18 @@
 				android:layout_height="wrap_content"
 				android:text="@string/exp_switch_pregnant"
 				android:visibility="gone" />
+			<!--Sleep-->
+			<TextView
+				android:id="@+id/sleepS1Header"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_sleep_s1_header"
+				android:visibility="gone" />
 
 			<TextView
-				android:id="@+id/seekBarAvgSleepHeader"
+				android:id="@+id/seekBarAvgSleepS1Header"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="8dp"
@@ -237,7 +248,7 @@
 				android:visibility="gone" />
 
 			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
-				android:id="@+id/seekBarAvgSleep"
+				android:id="@+id/seekBarAvgSleepS1"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				rsb:absoluteMinValue="0"
@@ -247,7 +258,7 @@
 				android:visibility="gone" />
 
 			<TextView
-				android:id="@+id/seekBarLastSleepHeader"
+				android:id="@+id/seekBarLastSleepS1Header"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="8dp"
@@ -256,7 +267,35 @@
 				android:visibility="gone" />
 
 			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
-				android:id="@+id/seekBarLastSleep"
+				android:id="@+id/seekBarLastSleepS1"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="24"
+				rsb:singleThumb="true"
+				rsb:showLabels="false"
+				android:visibility="gone" />
+			
+			<TextView
+				android:id="@+id/sleepS2Header"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_sleep_s2_header"
+				android:visibility="gone" />
+
+			<TextView
+				android:id="@+id/seekBarAvgSleepS2Header"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_avgsleep_header"
+				android:visibility="gone" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarAvgSleepS2"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				rsb:absoluteMinValue="0"
@@ -266,7 +305,36 @@
 				android:visibility="gone" />
 
 			<TextView
-				android:id="@+id/seekBarLastCaffeineHeader"
+				android:id="@+id/seekBarLastSleepS2Header"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_lastsleep_header"
+				android:visibility="gone" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarLastSleepS2"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="0"
+				rsb:absoluteMaxValue="24"
+				rsb:singleThumb="true"
+				rsb:showLabels="false"
+				android:visibility="gone" />
+			<!--End sleep-->
+			<!--Intake-->
+			<TextView
+				android:id="@+id/intakeS1Header"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_intake_s1_header"
+				android:visibility="gone" />
+
+			<TextView
+				android:id="@+id/seekBarLastCaffeineS1Header"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="8dp"
@@ -275,7 +343,7 @@
 				android:visibility="gone" />
 
 			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
-				android:id="@+id/seekBarLastCaffeine"
+				android:id="@+id/seekBarLastCaffeineS1"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				rsb:absoluteMinValue="-1"
@@ -285,7 +353,7 @@
 				android:visibility="gone" />
 
 			<TextView
-				android:id="@+id/seekBarLastAlcoholHeader"
+				android:id="@+id/seekBarLastAlcoholS1Header"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="8dp"
@@ -294,7 +362,7 @@
 				android:visibility="gone" />
 
 			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
-				android:id="@+id/seekBarLastAlcohol"
+				android:id="@+id/seekBarLastAlcoholS1"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				rsb:absoluteMinValue="-1"
@@ -302,9 +370,66 @@
 				rsb:singleThumb="true"
 				rsb:showLabels="false"
 				android:visibility="gone" />
-			
+
 			<TextView
-				android:id="@+id/seekBarLastSmokingHeader"
+				android:id="@+id/intakeS2Header"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_intake_s2_header"
+				android:visibility="gone" />
+
+			<TextView
+				android:id="@+id/seekBarLastCaffeineS2Header"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_lastcaffeine_header"
+				android:visibility="gone" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarLastCaffeineS2"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="-1"
+				rsb:absoluteMaxValue="24"
+				rsb:singleThumb="true"
+				rsb:showLabels="false"
+				android:visibility="gone" />
+
+			<TextView
+				android:id="@+id/seekBarLastAlcoholS2Header"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_lastalcohol_header"
+				android:visibility="gone" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarLastAlcoholS2"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="-1"
+				rsb:absoluteMaxValue="24"
+				rsb:singleThumb="true"
+				rsb:showLabels="false"
+				android:visibility="gone" />
+			<!--End sleep-->
+			<!--Smoking-->
+			<TextView
+				android:id="@+id/smokingS1Header"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_smoking_s1_header"
+				android:visibility="gone" />
+
+			<TextView
+				android:id="@+id/seekBarLastSmokingS1Header"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="8dp"
@@ -313,7 +438,7 @@
 				android:visibility="gone" />
 
 			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
-				android:id="@+id/seekBarLastSmoking"
+				android:id="@+id/seekBarLastSmokingS1"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				rsb:absoluteMinValue="-1"
@@ -321,7 +446,35 @@
 				rsb:singleThumb="true"
 				rsb:showLabels="false"
 				android:visibility="gone" />
-			
+
+			<TextView
+				android:id="@+id/smokingS2Header"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_smoking_s2_header"
+				android:visibility="gone" />
+
+			<TextView
+				android:id="@+id/seekBarLastSmokingS2Header"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:layout_marginLeft="5dp"
+				android:text="@string/exp_seekBar_lastsmoking_header"
+				android:visibility="gone" />
+
+			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
+				android:id="@+id/seekBarLastSmokingS2"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				rsb:absoluteMinValue="-1"
+				rsb:absoluteMaxValue="24"
+				rsb:singleThumb="true"
+				rsb:showLabels="false"
+				android:visibility="gone" />
+			<!-- End Smoking -->
 			<TextView
 				android:id="@+id/seekBarSkinColorHeader"
 				android:layout_width="wrap_content"
@@ -485,6 +638,15 @@
 				rsb:showLabels="false"
 				android:visibility="gone" />
 
+			<EditText
+				android:id="@+id/editStaticFirstFname"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ems="10"
+				android:inputType="textMultiLine"
+				android:hint="@string/exp_oname_hint"
+				android:visibility="gone" />
+
 			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
 				android:id="@+id/seekBarStaticSecond"
 				android:layout_width="match_parent"
@@ -494,6 +656,15 @@
 				rsb:showLabels="false"
 				android:visibility="gone" />
 
+			<EditText
+				android:id="@+id/editStaticSecondFname"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ems="10"
+				android:inputType="textMultiLine"
+				android:hint="@string/exp_oname_hint"
+				android:visibility="gone" />
+
 			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
 				android:id="@+id/seekBarStaticThird"
 				android:layout_width="match_parent"
@@ -501,6 +672,15 @@
 				rsb:absoluteMinValue="0"
 				rsb:absoluteMaxValue="300"
 				rsb:showLabels="false"
+				android:visibility="gone" />
+
+			<EditText
+				android:id="@+id/editStaticThirdFname"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ems="10"
+				android:inputType="textMultiLine"
+				android:hint="@string/exp_oname_hint"
 				android:visibility="gone" />
 
 			<CheckBox
@@ -528,6 +708,15 @@
 				rsb:showLabels="false"
 				android:visibility="gone" />
 
+			<EditText
+				android:id="@+id/editOrthostaticFirstFname"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ems="10"
+				android:inputType="textMultiLine"
+				android:hint="@string/exp_oname_hint"
+				android:visibility="gone" />
+
 			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
 				android:id="@+id/seekBarOrthoSecond"
 				android:layout_width="match_parent"
@@ -537,6 +726,15 @@
 				rsb:showLabels="false"
 				android:visibility="gone" />
 
+			<EditText
+				android:id="@+id/editOrthostaticSecondFname"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ems="10"
+				android:inputType="textMultiLine"
+				android:hint="@string/exp_oname_hint"
+				android:visibility="gone" />
+
 			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
 				android:id="@+id/seekBarOrthoThird"
 				android:layout_width="match_parent"
@@ -544,6 +742,15 @@
 				rsb:absoluteMinValue="0"
 				rsb:absoluteMaxValue="300"
 				rsb:showLabels="false"
+				android:visibility="gone" />
+
+			<EditText
+				android:id="@+id/editOrthostaticThirdFname"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ems="10"
+				android:inputType="textMultiLine"
+				android:hint="@string/exp_oname_hint"
 				android:visibility="gone" />
 
 			<TextView
@@ -593,6 +800,15 @@
 				rsb:showLabels="false"
 				android:visibility="gone" />
 
+			<EditText
+				android:id="@+id/editIncreaseFirstFname"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ems="10"
+				android:inputType="textMultiLine"
+				android:hint="@string/exp_oname_hint"
+				android:visibility="gone" />
+
 			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
 				android:id="@+id/seekBarIncreaseSecond"
 				android:layout_width="match_parent"
@@ -600,6 +816,15 @@
 				rsb:absoluteMinValue="0"
 				rsb:absoluteMaxValue="300"
 				rsb:showLabels="false"
+				android:visibility="gone" />
+
+			<EditText
+				android:id="@+id/editIncreaseSecondFname"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ems="10"
+				android:inputType="textMultiLine"
+				android:hint="@string/exp_oname_hint"
 				android:visibility="gone" />
 
 			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
@@ -611,6 +836,15 @@
 				rsb:showLabels="false"
 				android:visibility="gone" />
 
+			<EditText
+				android:id="@+id/editIncreaseThirdFname"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ems="10"
+				android:inputType="textMultiLine"
+				android:hint="@string/exp_oname_hint"
+				android:visibility="gone" />
+
 			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
 				android:id="@+id/seekBarIncreaseFourth"
 				android:layout_width="match_parent"
@@ -618,6 +852,15 @@
 				rsb:absoluteMinValue="0"
 				rsb:absoluteMaxValue="300"
 				rsb:showLabels="false"
+				android:visibility="gone" />
+
+			<EditText
+				android:id="@+id/editIncreaseFourthFname"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ems="10"
+				android:inputType="textMultiLine"
+				android:hint="@string/exp_oname_hint"
 				android:visibility="gone" />
 
 			<TextView
@@ -657,6 +900,15 @@
 				rsb:showLabels="false"
 				android:visibility="gone" />
 
+			<EditText
+				android:id="@+id/editDecreaseFirstFname"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ems="10"
+				android:inputType="textMultiLine"
+				android:hint="@string/exp_oname_hint"
+				android:visibility="gone" />
+
 			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
 				android:id="@+id/seekBarDecreaseSecond"
 				android:layout_width="match_parent"
@@ -664,6 +916,15 @@
 				rsb:absoluteMinValue="0"
 				rsb:absoluteMaxValue="300"
 				rsb:showLabels="false"
+				android:visibility="gone" />
+
+			<EditText
+				android:id="@+id/editDecreaseSecondFname"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ems="10"
+				android:inputType="textMultiLine"
+				android:hint="@string/exp_oname_hint"
 				android:visibility="gone" />
 
 			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
@@ -675,6 +936,15 @@
 				rsb:showLabels="false"
 				android:visibility="gone" />
 
+			<EditText
+				android:id="@+id/editDecreaseThirdFname"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ems="10"
+				android:inputType="textMultiLine"
+				android:hint="@string/exp_oname_hint"
+				android:visibility="gone" />
+
 			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
 				android:id="@+id/seekBarDecreaseFourth"
 				android:layout_width="match_parent"
@@ -682,6 +952,15 @@
 				rsb:absoluteMinValue="0"
 				rsb:absoluteMaxValue="300"
 				rsb:showLabels="false"
+				android:visibility="gone" />
+
+			<EditText
+				android:id="@+id/editDecreaseFourthFname"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ems="10"
+				android:inputType="textMultiLine"
+				android:hint="@string/exp_oname_hint"
 				android:visibility="gone" />
 
 			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
@@ -693,6 +972,15 @@
 				rsb:showLabels="false"
 				android:visibility="gone" />
 
+			<EditText
+				android:id="@+id/editDecreaseFifthFname"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ems="10"
+				android:inputType="textMultiLine"
+				android:hint="@string/exp_oname_hint"
+				android:visibility="gone" />
+
 			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
 				android:id="@+id/seekBarDecreaseSixth"
 				android:layout_width="match_parent"
@@ -702,6 +990,15 @@
 				rsb:showLabels="false"
 				android:visibility="gone" />
 
+			<EditText
+				android:id="@+id/editDecreaseSixthFname"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ems="10"
+				android:inputType="textMultiLine"
+				android:hint="@string/exp_oname_hint"
+				android:visibility="gone" />
+
 			<com.ianpinto.androidrangeseekbar.rangeseekbar.RangeSeekBar
 				android:id="@+id/seekBarDecreaseSeventh"
 				android:layout_width="match_parent"
@@ -709,6 +1006,15 @@
 				rsb:absoluteMinValue="0"
 				rsb:absoluteMaxValue="300"
 				rsb:showLabels="false"
+				android:visibility="gone" />
+
+			<EditText
+				android:id="@+id/editDecreaseSeventhFname"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ems="10"
+				android:inputType="textMultiLine"
+				android:hint="@string/exp_oname_hint"
 				android:visibility="gone" />
 
 		</LinearLayout>
