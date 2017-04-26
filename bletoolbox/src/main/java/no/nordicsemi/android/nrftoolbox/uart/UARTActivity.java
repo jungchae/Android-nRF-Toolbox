@@ -810,6 +810,7 @@ public class UARTActivity extends BleProfileServiceReadyActivity<UARTService.UAR
 			writer.close();
 
 			// Notify user about the file
+			Toast.makeText(this, file.getName() + " is created.", Toast.LENGTH_SHORT).show();
 			/*
 			final Intent intent = new Intent(Intent.ACTION_VIEW);
 			intent.setDataAndType(FileHelper.getContentUri(this, file), "text/xml");
