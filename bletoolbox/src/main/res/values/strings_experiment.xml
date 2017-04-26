@@ -74,6 +74,7 @@
     <string name="exp_logging_prefix">PPG</string>
     <string name="exp_logging_ext">bin</string>
     <string name="exp_logging_path">WD_PPG_PILOT</string>
+    <string name="exp_logging_pktlossInfo">Packet loss information</string>
     <string name="exp_logging_fnameIndicator">File name notification</string>
 
     <string name="exp_skey_uid">uid</string>
