@@ -29,11 +29,13 @@ class ReportOrthostatic implements IReport{
     public static final String NAME_FEXT = "bin";
     public static final String NAME_UNIT = "mmHg";
     private static final int TRIAL_COUNT = 3;
+    public static final int SESSION_CNT = 2;
+    public static final String[] NAME_SESSION = {"s1.", "s2."};
     public boolean feeldizzness;
-    public BloodPressure[] values = new BloodPressure[TRIAL_COUNT];
-    public String[] fnames = new String[TRIAL_COUNT];
+    public BloodPressure[] values = new BloodPressure[TRIAL_COUNT*SESSION_CNT];
+    public String[] fnames = new String[TRIAL_COUNT*SESSION_CNT];
     ReportOrthostatic() {
-        for (int i = 0; i < TRIAL_COUNT; i++) {
+        for (int i = 0; i < TRIAL_COUNT*SESSION_CNT; i++) {
             values[i] = new BloodPressure();
             fnames[i] = new String("");
         }
@@ -163,9 +165,11 @@ public class ReportOrthostaticConfig implements IExperimentProtocol {
         mEditOrthostaticFirstFname.setVisibility(mode);
         mEditOrthostaticSecondFname.setVisibility(mode);
         mEditOrthostaticThirdFname.setVisibility(mode);
-        mEditOrthostaticFirstFname.setHint(R.string.exp_fname_hint);
-        mEditOrthostaticSecondFname.setHint(R.string.exp_fname_hint);
-        mEditOrthostaticThirdFname.setHint(R.string.exp_fname_hint);
+
+        String hint = mView.getResources().getString(R.string.exp_fname_hint);
+        mEditOrthostaticFirstFname.setHint("1st " + hint);
+        mEditOrthostaticSecondFname.setHint("2nd " + hint);
+        mEditOrthostaticThirdFname.setHint("3rd " + hint);
         mEditOrthostaticFirstFname.setTextSize(14);
         mEditOrthostaticSecondFname.setTextSize(14);
         mEditOrthostaticThirdFname.setTextSize(14);

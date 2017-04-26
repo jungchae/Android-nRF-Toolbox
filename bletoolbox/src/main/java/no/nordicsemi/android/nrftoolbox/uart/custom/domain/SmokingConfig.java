@@ -21,13 +21,14 @@ class Smoking implements IReport{
     public static final String NAME = "Smoking";
     public static final String NAME_LASTSMOKING = "lastsmoking";
     public static final String NAME_UNIT = "hours";
-    public static final String[] NAME_SESSION = {"s1", "s2"};
+    public static final String[] NAME_SESSION = {"s1.", "s2."};
     public static final int SESSION_CNT = 2;
+    public static final int TRIAL_COUNT = 1;
     public int[] lastsmoking = new int[SESSION_CNT];
 
     @Override
     public int getMaxTrialCount() {
-        return SESSION_CNT;
+        return TRIAL_COUNT;
     }
 
     @Override

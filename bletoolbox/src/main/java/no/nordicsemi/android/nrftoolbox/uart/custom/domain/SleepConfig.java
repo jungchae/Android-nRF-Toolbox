@@ -23,14 +23,15 @@ class Sleep implements IReport{
     public static final String NAME_AVGSLEEP = "avgsleep";
     public static final String NAME_LASTSLEEP = "lastsleep";
     public static final String NAME_UNIT = "hour";
-    public static final String[] NAME_SESSION = {"s1", "s2"};
+    public static final String[] NAME_SESSION = {"s1.", "s2."};
     public static final int SESSION_CNT = 2;
+    public static final int TRIAL_COUNT = 1;
     public int[] avgsleep = new int[SESSION_CNT];
     public int[] lastsleep = new int[SESSION_CNT];
 
     @Override
     public int getMaxTrialCount() {
-        return SESSION_CNT;
+        return TRIAL_COUNT;
     }
 
     @Override
@@ -42,13 +43,13 @@ class Sleep implements IReport{
     public int getInt(String sKey) {
         int ret = -1;
 
-        if(sKey.equals(NAME_AVGSLEEP+NAME_SESSION[0])) {
+        if(sKey.equals(NAME_SESSION[0]+NAME_AVGSLEEP)) {
             ret = avgsleep[0];
-        } else if(sKey.equals(NAME_AVGSLEEP+NAME_SESSION[1])) {
+        } else if(sKey.equals(NAME_SESSION[1]+NAME_AVGSLEEP)) {
             ret = avgsleep[1];
-        } else if(sKey.equals(NAME_LASTSLEEP+NAME_SESSION[0])) {
+        } else if(sKey.equals(NAME_SESSION[0]+NAME_LASTSLEEP)) {
             ret = lastsleep[0];
-        } else if(sKey.equals(NAME_LASTSLEEP+NAME_SESSION[1])) {
+        } else if(sKey.equals(NAME_SESSION[1]+NAME_LASTSLEEP)) {
             ret = lastsleep[1];
         }
 
@@ -66,14 +67,14 @@ class Sleep implements IReport{
             default:
         }
 
-        if(sKey.equals(NAME_AVGSLEEP+NAME_SESSION[0])) {
-            ret = avgsleep[0] + " " + NAME_UNIT;
-        } else if(sKey.equals(NAME_AVGSLEEP+NAME_SESSION[1])) {
-            ret = avgsleep[1] + " " + NAME_UNIT;
-        } else if(sKey.equals(NAME_LASTSLEEP+NAME_SESSION[0])) {
-            ret = lastsleep[0] + " " + NAME_UNIT;
-        } else if(sKey.equals(NAME_LASTSLEEP+NAME_SESSION[1])) {
-            ret = lastsleep[1] + " " + NAME_UNIT;
+        if(sKey.equals(NAME_SESSION[0]+NAME_AVGSLEEP)) {
+            ret = avgsleep[0] + NAME_UNIT;
+        } else if(sKey.equals(NAME_SESSION[1]+NAME_AVGSLEEP)) {
+            ret = avgsleep[1] + NAME_UNIT;
+        } else if(sKey.equals(NAME_SESSION[0]+NAME_LASTSLEEP)) {
+            ret = lastsleep[0] + NAME_UNIT;
+        } else if(sKey.equals(NAME_SESSION[1]+NAME_LASTSLEEP)) {
+            ret = lastsleep[1] + NAME_UNIT;
         }
 
         return ret;
