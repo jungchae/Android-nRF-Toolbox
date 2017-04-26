@@ -22,14 +22,15 @@ class Intake implements IReport {
     public static final String NAME_LASTCAFFEINE = "lastcaffeine";
     public static final String NAME_LASTALCOHOL = "lastalcohol";
     public static final String NAME_UNIT = "hour";
-    public static final String[] NAME_SESSION = {"s1", "s2"};
+    public static final String[] NAME_SESSION = {"s1.", "s2."};
     public static final int SESSION_CNT = 2;
+    public static final int TRIAL_COUNT = 1;
     public int[] lastcaffeine = new int[SESSION_CNT];
     public int[] lastalcohol = new int[SESSION_CNT];
 
     @Override
     public int getMaxTrialCount() {
-        return SESSION_CNT; // Session Cnt
+        return TRIAL_COUNT; // Session Cnt
     }
 
     @Override
@@ -41,13 +42,13 @@ class Intake implements IReport {
     public int getInt(String sKey) {
         int ret = -1;
 
-        if(sKey.equals(NAME_LASTCAFFEINE+NAME_SESSION[0])) {
+        if(sKey.equals(NAME_SESSION[0]+NAME_LASTCAFFEINE)) {
             ret = lastcaffeine[0];
-        } else if(sKey.equals(NAME_LASTCAFFEINE+NAME_SESSION[1])) {
+        } else if(sKey.equals(NAME_SESSION[1]+NAME_LASTCAFFEINE)) {
             ret = lastcaffeine[1];
-        } else if(sKey.equals(NAME_LASTALCOHOL+NAME_SESSION[0])) {
+        } else if(sKey.equals(NAME_SESSION[0]+NAME_LASTALCOHOL)) {
             ret = lastalcohol[0];
-        } else if(sKey.equals(NAME_LASTALCOHOL+NAME_SESSION[1])) {
+        } else if(sKey.equals(NAME_SESSION[1]+NAME_LASTALCOHOL)) {
             ret = lastalcohol[1];
         }
 
@@ -65,14 +66,14 @@ class Intake implements IReport {
             default:
         }
 
-        if(sKey.equals(NAME_LASTCAFFEINE+NAME_SESSION[0])) {
-            ret = lastcaffeine[0] + " " + NAME_UNIT;
-        } else if(sKey.equals(NAME_LASTCAFFEINE+NAME_SESSION[1])) {
-            ret = lastcaffeine[1] + " " + NAME_UNIT;
-        } else if(sKey.equals(NAME_LASTALCOHOL+NAME_SESSION[0])) {
-            ret = lastalcohol[0] + " " + NAME_UNIT;
-        } else if(sKey.equals(NAME_LASTALCOHOL+NAME_SESSION[1])) {
-            ret = lastalcohol[1] + " " + NAME_UNIT;
+        if(sKey.equals(NAME_SESSION[0]+NAME_LASTCAFFEINE)) {
+            ret = lastcaffeine[0] + NAME_UNIT;
+        } else if(sKey.equals(NAME_SESSION[1]+NAME_LASTCAFFEINE)) {
+            ret = lastcaffeine[1] + NAME_UNIT;
+        } else if(sKey.equals(NAME_SESSION[0]+NAME_LASTALCOHOL)) {
+            ret = lastalcohol[0] + NAME_UNIT;
+        } else if(sKey.equals(NAME_SESSION[1]+NAME_LASTALCOHOL)) {
+            ret = lastalcohol[1] + NAME_UNIT;
         }
 
         return ret;

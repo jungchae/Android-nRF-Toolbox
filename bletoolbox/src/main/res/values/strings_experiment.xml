@@ -16,6 +16,7 @@
     <string name="exp_oname_hint">Observer ID</string>
     <string name="exp_email_hint">your@example.com</string>
     <string name="exp_datePicker_header">Select birth date</string>
+
     <string name="exp_seekBar_height_header">Height</string>
     <string name="exp_seekBar_weight_header">Weight</string>
     <string name="exp_switch_arrhythmias">Do you have arrhythmias?</string>
@@ -25,7 +26,7 @@
 
     <string name="exp_sleep_s1_header">Sleep session 1st</string>
     <string name="exp_sleep_s2_header">Sleep session 2nd</string>
-    <string name="exp_seekBar_avgsleep_header">Average sdleep time</string>
+    <string name="exp_seekBar_avgsleep_header">Average sleep time</string>
     <string name="exp_seekBar_lastsleep_header">Last sleep time</string>
     <string name="exp_intake_s1_header">Intake session 1st</string>
     <string name="exp_intake_s2_header">Intake session 2nd</string>
@@ -43,18 +44,18 @@
     <string name="exp_seekBar_disc_first_header">Discrepancy test 1st left-right arm</string>
     <string name="exp_seekBar_disc_second_header">Discrepancy test 2nd left-right arm</string>
     <string name="exp_seekBar_disc_third_header">Discrepancy test 3rd left-right arm</string>
-    <string name="exp_seekBar_static_header">Phase 1 : Static test</string>
+    <string name="exp_seekBar_static_header">Phase 1 : Static test session</string>
 
     <string name="exp_checkBox_dizzness_ortho_header">Do you feel dizzness?</string>
     <string name="exp_seekBar_orthos_header">Phase 2 : Orthostatic test</string>
 
-    <string name="exp_seekBar_increase_load_header">Setting both 1st and 2nd load level</string>
-    <string name="exp_seekBar_increase_header">Phase 3 : Increase test</string>
+    <string name="exp_seekBar_increase_load_header">Load level session</string>
+    <string name="exp_seekBar_increase_header">Phase 3 : Increase test session</string>
 
-    <string name="exp_seekBar_decrease_temperature_header">Setting water temperature</string>
-    <string name="exp_seekBar_decrease_header">Phase 4 : Decrease test</string>
+    <string name="exp_seekBar_decrease_temperature_header">Water temperature session</string>
+    <string name="exp_seekBar_decrease_header">Phase 4 : Decrease test session</string>
 
-    <string name="exp_fname_hint">A filename is required.</string>
+    <string name="exp_fname_hint">filename is required.</string>
 
     <string name="exp_ctrl_labid_header">Lab.ID</string>
     <string name="exp_ctrl_labid_il">IL</string>

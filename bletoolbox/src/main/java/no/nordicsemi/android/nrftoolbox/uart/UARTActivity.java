@@ -852,6 +852,7 @@ public class UARTActivity extends BleProfileServiceReadyActivity<UARTService.UAR
 			final NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 			nm.notify(fileName, 823, notification);
 			*/
+			Toast.makeText(this, file.getName() + " is created.", Toast.LENGTH_SHORT).show();
 		} catch (final Exception e) {
 			Log.e(TAG, "Error while exporting configuration", e);
 			Toast.makeText(this, R.string.uart_configuration_save_error, Toast.LENGTH_SHORT).show();
